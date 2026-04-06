@@ -1,0 +1,117 @@
+<div class="visits">
+  <div class="visitsHeader">
+    <div class="leftActions">
+      <div class="search">
+        <input
+          type="text"
+          placeholder="Buscar por asunto…"
+          [value]="searchTerm"
+          (input)="onSearchInput($any($event.target).value)"
+        />
+      </div>
+      <button class="btn" type="button" (click)="goToCreateVisit()">Anadir visita</button>
+    </div>
+
+    <div class="pagination">
+      <button class="ghost" type="button" (click)="previousPage()" [disabled]="pageIndex === 0">
+        Anterior
+      </button>
+      <span class="pageInfo">{{ pageIndex + 1 }} / {{ totalPages }}</span>
+      <button
+        class="ghost"
+        type="button"
+        (click)="nextPage()"
+        [disabled]="pageIndex + 1 >= totalPages"
+      >
+        Siguiente
+      </button>
+    </div>
+  </div>
+
+  @if (loading) {
+    <p class="muted">Cargando…</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else if (visitRows.length === 0) {
+    <p class="muted">No hay visitas para mostrar.</p>
+  } @else {
+    <div class="table">
+      <div class="row header">
+        <div>Fecha</div>
+        <div>Asunto</div>
+        <div>Diagnostico</div>
+        <div class="actionsHeader">Acciones</div>
+      </div>
+
+      @for (visit of visitRows; track visit.id) {
+        <div class="row">
+          <div class="cell">{{ visit.visitDate }}</div>
+          <div class="cell subject">{{ visit.reason }}</div>
+          <div class="cell diagnosis">{{ visit.diagnosis || 'Sin diagnostico' }}</div>
+          <div class="cell actions">
+            <a
+              class="iconBtn"
+              [routerLink]="['/veterinary-visits', visit.id]"
+              [queryParams]="dogId ? { dogId: dogId } : null"
+            >
+              <span class="srOnly">Ver visita</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 5c5 0 9.3 4 11 7-1.7 3-6 7-11 7S2.7 15 1 12c1.7-3 6-7 11-7Zm0 3.5A3.5 3.5 0 1 0 12 16a3.5 3.5 0 0 0 0-7Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
+            <button class="iconBtn" type="button" (click)="goToEditVisit(visit.id)">
+              <span class="srOnly">Editar visita</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M4 17.3V20h2.7l8-8-2.7-2.7-8 8Zm12.7-8.6 1.9-1.9a1 1 0 0 0 0-1.4l-1-1a1 1 0 0 0-1.4 0l-1.9 1.9 2.4 2.4Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+            <button class="iconBtn danger" type="button" (click)="deleteVisit(visit.id)">
+              <span class="srOnly">Borrar visita</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M7 6h10l-1 14H8L7 6Zm9-3H8l-1 2h10l-1-2Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  @if (deletingId !== null) {
+    <div class="modalBackdrop" (click)="closeDeleteModal()">
+      <section class="modalCard" (click)="$event.stopPropagation()">
+        <h3>Eliminar visita</h3>
+        <p class="muted">
+          Esta accion borrara la visita veterinaria y ya no aparecera en el historial del perro.
+        </p>
+        <div class="modalActions">
+          <button
+            class="ghost"
+            type="button"
+            (click)="closeDeleteModal()"
+            [disabled]="deletingVisit"
+          >
+            Cancelar
+          </button>
+          <button
+            class="dangerBtn"
+            type="button"
+            (click)="confirmDelete()"
+            [disabled]="deletingVisit"
+          >
+            @if (deletingVisit) { Eliminando… } @else { Confirmar borrado }
+          </button>
+        </div>
+      </section>
+    </div>
+  }
+</div>

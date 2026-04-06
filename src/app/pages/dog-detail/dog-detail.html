@@ -1,0 +1,211 @@
+<app-owner-shell section="dogs">
+  <div class="content">
+    <section class="card">
+      @if (dog) {
+        <div class="pageIntro">
+          <div>
+            <h2>{{ dog.name }}</h2>
+            <p class="subtitle">Gestiona su ficha, desparasitacion, vacunas, notas y visitas.</p>
+          </div>
+        </div>
+      }
+
+      @if (!loading && !error) {
+        <nav class="tabs" aria-label="Secciones del perro">
+          <button
+            class="tab"
+            type="button"
+            [class.is-active]="activeTab === 'basic'"
+            [attr.aria-current]="activeTab === 'basic' ? 'page' : null"
+            (click)="setTab('basic')"
+          >
+            Informacion basica
+          </button>
+          <button
+            class="tab"
+            type="button"
+            [class.is-active]="activeTab === 'vaccines'"
+            [attr.aria-current]="activeTab === 'vaccines' ? 'page' : null"
+            (click)="setTab('vaccines')"
+          >
+            Vacunas
+          </button>
+          <button
+            class="tab"
+            type="button"
+            [class.is-active]="activeTab === 'deworming'"
+            [attr.aria-current]="activeTab === 'deworming' ? 'page' : null"
+            (click)="setTab('deworming')"
+          >
+            Desparasitacion
+          </button>
+          <button
+            class="tab"
+            type="button"
+            [class.is-active]="activeTab === 'notes'"
+            [attr.aria-current]="activeTab === 'notes' ? 'page' : null"
+            (click)="setTab('notes')"
+          >
+            Notas
+          </button>
+          <button
+            class="tab"
+            type="button"
+            [class.is-active]="activeTab === 'visits'"
+            [attr.aria-current]="activeTab === 'visits' ? 'page' : null"
+            (click)="setTab('visits')"
+          >
+            Visitas veterinario
+          </button>
+        </nav>
+      }
+
+      @if (loading) {
+        <p class="muted">Cargando…</p>
+      } @else if (error) {
+        <p class="error">{{ error }}</p>
+      } @else if (dog && activeTab === 'basic') {
+        <div class="header">
+          <div class="photo">
+            @if (photoUrl) {
+              <img [src]="photoUrl" alt="Foto de {{ dog.name }}" />
+            } @else {
+              <span class="initial">{{ dog.name.charAt(0) }}</span>
+            }
+          </div>
+          <div class="title">
+            <h3>Informacion basica</h3>
+            <p class="muted">Datos generales y foto principal del perro.</p>
+          </div>
+          @if (!editing) {
+            <div class="dogActions">
+              <button class="ghost" type="button" (click)="startEdit()">Modificar</button>
+              <button
+                class="danger"
+                type="button"
+                (click)="openDeleteModal()"
+                [disabled]="deleting || saving"
+              >
+                @if (deleting) { Eliminando… } @else { Eliminar }
+              </button>
+            </div>
+          }
+        </div>
+
+        @if (!editing) {
+          <div class="grid">
+            <div class="field">
+              <span>Nombre</span>
+              <div class="value">{{ dog.name }}</div>
+            </div>
+
+            <div class="field">
+              <span>Raza</span>
+              <div class="value">{{ dog.breed }}</div>
+            </div>
+
+            <div class="field">
+              <span>Fecha de nacimiento</span>
+              <div class="value">{{ dog.birthDate }}</div>
+            </div>
+
+            <div class="field">
+              <span>Microchip</span>
+              <div class="value">{{ dog.microchip }}</div>
+            </div>
+
+            <div class="field">
+              <span>Propietario</span>
+              <div class="value">{{ dog.ownerName }}</div>
+            </div>
+          </div>
+        } @else {
+          <form [formGroup]="editForm" (ngSubmit)="saveDog()" class="editCard">
+            <div class="editIntro">
+              <h2>Modificar perro</h2>
+              <p class="muted">Actualiza los datos basicos y la foto desde esta vista.</p>
+            </div>
+
+            <div class="grid">
+              <label class="field">
+                <span>Nombre</span>
+                <input type="text" formControlName="name" />
+              </label>
+
+              <label class="field">
+                <span>Raza</span>
+                <input type="text" formControlName="breed" />
+              </label>
+
+              <label class="field">
+                <span>Fecha de nacimiento</span>
+                <input type="date" formControlName="birthDate" />
+              </label>
+
+              <label class="field">
+                <span>Microchip</span>
+                <input type="text" formControlName="microchip" />
+              </label>
+
+              <div class="field">
+                <span>Propietario</span>
+                <div class="value">{{ dog.ownerName }}</div>
+              </div>
+
+              <div class="field">
+                <span>Foto</span>
+                <label class="fileBtn">
+                  <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+                  Cambiar foto
+                </label>
+                <small class="muted">PNG/JPG. Maximo 5 MB.</small>
+                @if (selectedFile) {
+                  <small class="fileName">{{ selectedFile.name }}</small>
+                }
+                @if (photoError) {
+                  <small class="error">{{ photoError }}</small>
+                }
+              </div>
+            </div>
+
+            <div class="formActions">
+              <button class="ghost" type="button" (click)="cancelEdit()" [disabled]="saving">
+                Cancelar
+              </button>
+              <button class="primary" type="submit" [disabled]="saving || editForm.invalid">
+                @if (saving) { Guardando… } @else { Guardar cambios }
+              </button>
+            </div>
+          </form>
+        }
+      } @else if (activeTab === 'vaccines' && dogId) {
+        <app-dog-vaccines [dogId]="dogId"></app-dog-vaccines>
+      } @else if (activeTab === 'deworming' && dogId) {
+        <app-dog-deworming [dogId]="dogId"></app-dog-deworming>
+      } @else if (activeTab === 'visits' && dogId) {
+        <app-dog-visits [dogId]="dogId"></app-dog-visits>
+      } @else if (activeTab === 'notes' && dogId) {
+        <app-dog-notes [dogId]="dogId"></app-dog-notes>
+      }
+    </section>
+  </div>
+
+  @if (showDeleteModal) {
+    <div class="modalBackdrop" (click)="closeDeleteModal()">
+      <section class="modalCard" (click)="$event.stopPropagation()">
+        <h3>Eliminar perro</h3>
+        <p class="muted">
+          Esta accion borrara el perro y ya no aparecera en tu panel.
+        </p>
+        <div class="modalActions">
+          <button class="ghost" type="button" (click)="closeDeleteModal()" [disabled]="deleting">
+            Cancelar
+          </button>
+          <button class="danger" type="button" (click)="confirmDelete()" [disabled]="deleting">
+            @if (deleting) { Eliminando… } @else { Confirmar borrado }
+          </button>
+        </div>
+      </section>
+    </div>
+  }
+</app-owner-shell>

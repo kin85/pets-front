@@ -1,0 +1,42 @@
+<app-owner-shell section="dogs">
+  <div class="content">
+    <section class="card">
+      @if (loading) {
+        <p class="muted">Cargando…</p>
+      } @else if (error) {
+        <p class="error">{{ error }}</p>
+      } @else {
+        <div class="sectionHeader">
+          <div>
+            <h2>Tus perros</h2>
+            <p class="muted small">Gestiona tus perros y sus vacunas.</p>
+          </div>
+
+          <button class="btn" type="button" (click)="addDog()">Añadir perro</button>
+        </div>
+
+        @if (data?.dogs?.length) {
+          <div class="profiles" role="list">
+            @for (dog of data!.dogs; track dog.id) {
+              <button class="profile" type="button" role="listitem" (click)="openDog(dog.id)">
+                <div class="avatar" aria-hidden="true">
+  @if (dog.photoUrl) {
+    <img class="avatarImg" [src]="dog.photoUrl" alt="Foto de {{ dog.name }}" />
+  } @else {
+    <span class="initial">{{ dog.name.charAt(0) }}</span>
+  }
+</div>
+                <div class="name">{{ dog.name }}</div>
+              </button>
+            }
+          </div>
+        } @else {
+          <div class="empty">
+            <p class="muted">Aún no tienes perros creados.</p>
+            <button class="btn" type="button" (click)="addDog()">Crear el primero</button>
+          </div>
+        }
+      }
+    </section>
+  </div>
+</app-owner-shell>

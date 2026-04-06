@@ -1,0 +1,138 @@
+<div class="deworming">
+  @if (loading) {
+    <p class="muted">Cargando…</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else {
+    <div class="cards">
+      @for (card of cards; track card.type) {
+        <section
+          class="card"
+          [class.is-active]="card.status === 'ACTIVE'"
+          [class.is-warning]="card.status === 'WARNING'"
+          [class.is-expired]="card.status === 'EXPIRED'"
+          [class.is-missing]="card.status === 'MISSING'"
+        >
+          <div class="cardHeader">
+            <h3>{{ card.title }}</h3>
+            <span
+              class="status"
+              [class.active]="card.status === 'ACTIVE'"
+              [class.warning]="card.status === 'WARNING'"
+              [class.expired]="card.status === 'EXPIRED'"
+              [class.missing]="card.status === 'MISSING'"
+            >
+              {{ card.statusLabel }}
+            </span>
+          </div>
+
+          @if (card.current) {
+            <div class="details">
+              <div class="field">
+                <span>Producto</span>
+                <strong>{{ card.current.name }}</strong>
+              </div>
+              <div class="field">
+                <span>Administrada</span>
+                <strong>{{ card.current.administrationDate }}</strong>
+              </div>
+              <div class="field">
+                <span>Caducidad</span>
+                <strong>{{ card.current.expirationDate || 'Sin fecha registrada' }}</strong>
+              </div>
+            </div>
+          } @else {
+            <p class="empty">No hay una desparasitacion activa de este tipo.</p>
+          }
+
+          <div
+            class="notice"
+            [class.active]="card.status === 'ACTIVE'"
+            [class.warning]="card.status === 'WARNING'"
+            [class.expired]="card.status === 'EXPIRED'"
+            [class.missing]="card.status === 'MISSING'"
+          >
+            <p>{{ card.statusText }}</p>
+            @if (card.status === 'WARNING' && card.daysUntilExpiration !== null) {
+              <small>Quedan {{ card.daysUntilExpiration }} dias para que caduque.</small>
+            }
+          </div>
+
+          @if (creatingType === card.type) {
+            <form [formGroup]="createForm" (ngSubmit)="saveCreate(card.type)" class="createForm">
+              <label class="field">
+                <span>Nombre del producto</span>
+                <input type="text" formControlName="name" />
+                @if (createForm.controls.name.touched && createForm.controls.name.invalid) {
+                  <small class="errorText">El nombre es obligatorio.</small>
+                }
+              </label>
+
+              <div class="formGrid">
+                <label class="field">
+                  <span>Fecha de administracion</span>
+                  <input type="date" formControlName="administrationDate" />
+                  @if (
+                    createForm.controls.administrationDate.touched &&
+                    createForm.controls.administrationDate.invalid
+                  ) {
+                    <small class="errorText">La fecha de administracion es obligatoria.</small>
+                  }
+                </label>
+
+                <label class="field">
+                  <span>Fecha de caducidad</span>
+                  <input type="date" formControlName="expirationDate" />
+                  @if (createForm.controls.expirationDate.touched && createForm.controls.expirationDate.invalid) {
+                    <small class="errorText">La fecha de caducidad es obligatoria.</small>
+                  }
+                </label>
+              </div>
+
+              <div class="formActions">
+                <button class="ghost" type="button" (click)="cancelCreate()" [disabled]="saving">
+                  Cancelar
+                </button>
+                <button class="primary" type="submit" [disabled]="saving || createForm.invalid">
+                  @if (saving) { Guardando… } @else { Guardar }
+                </button>
+              </div>
+            </form>
+          } @else if (card.canCreate || card.current) {
+            <div class="actions">
+              @if (card.current) {
+                <button class="dangerBtn" type="button" (click)="openDeleteModal(card)">
+                  Eliminar
+                </button>
+              }
+              @if (card.canCreate) {
+                <button class="actionBtn" type="button" (click)="startCreate(card.type)">
+                  {{ card.actionLabel }}
+                </button>
+              }
+            </div>
+          }
+        </section>
+      }
+    </div>
+  }
+
+  @if (deletingRecord) {
+    <div class="modalBackdrop" (click)="closeDeleteModal()">
+      <section class="modalCard" (click)="$event.stopPropagation()">
+        <h3>Eliminar desparasitacion</h3>
+        <p class="muted">
+          Se eliminara el registro actual de {{ deletingRecord.title.toLowerCase() }}.
+        </p>
+        <div class="modalActions">
+          <button class="ghost" type="button" (click)="closeDeleteModal()" [disabled]="deleting">
+            Cancelar
+          </button>
+          <button class="dangerBtn" type="button" (click)="confirmDelete()" [disabled]="deleting">
+            @if (deleting) { Eliminando… } @else { Confirmar borrado }
+          </button>
+        </div>
+      </section>
+    </div>
+  }
+</div>

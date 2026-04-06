@@ -1,0 +1,87 @@
+<app-owner-shell section="profile">
+  <section class="card">
+    <div class="intro">
+      <h2>Editar perfil</h2>
+      <p class="muted">Actualiza tus datos desde esta misma pantalla.</p>
+    </div>
+
+    @if (loading) {
+      <p class="muted">Cargando perfil…</p>
+    } @else {
+      <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+        <div class="summary">
+          <div class="summaryLabel">Usuario</div>
+          <div class="summaryValue">{{ form.getRawValue().username }}</div>
+          <small class="muted">El usuario no se puede cambiar.</small>
+        </div>
+
+        <div class="grid">
+          <label class="field">
+            <span>Email</span>
+            <input type="email" formControlName="email" placeholder="usuario@email.com" />
+            @if (form.controls.email.touched && form.controls.email.invalid) {
+              <small class="error">Introduce un email valido.</small>
+            }
+          </label>
+
+          <label class="field">
+            <span>Nombre</span>
+            <input type="text" formControlName="name" placeholder="Tu nombre" />
+            @if (form.controls.name.touched && form.controls.name.invalid) {
+              <small class="error">El nombre es obligatorio.</small>
+            }
+          </label>
+
+          <label class="field">
+            <span>Telefono</span>
+            <input type="text" formControlName="phone" placeholder="600123123" />
+            @if (form.controls.phone.touched && form.controls.phone.invalid) {
+              <small class="error">El telefono es obligatorio.</small>
+            }
+          </label>
+
+          <label class="field fieldWide">
+            <span>Direccion</span>
+            <input type="text" formControlName="address" placeholder="Calle, numero, ciudad" />
+            @if (form.controls.address.touched && form.controls.address.invalid) {
+              <small class="error">La direccion es obligatoria.</small>
+            }
+          </label>
+
+          <label class="field">
+            <span>Nueva contraseña</span>
+            <input type="password" formControlName="password" placeholder="Dejala vacia para mantener la actual" />
+            @if (form.controls.password.touched && form.controls.password.invalid) {
+              <small class="error">La contraseña debe tener al menos 6 caracteres.</small>
+            }
+          </label>
+
+          <label class="field">
+            <span>Repetir contraseña</span>
+            <input type="password" formControlName="confirmPassword" placeholder="Repite la nueva contraseña" />
+            @if (form.hasError('passwordMismatch') && (form.controls.password.touched || form.controls.confirmPassword.touched)) {
+              <small class="error">Las contraseñas no coinciden.</small>
+            }
+          </label>
+        </div>
+
+        @if (error) {
+          <p class="errorBlock">{{ error }}</p>
+        }
+
+        @if (success) {
+          <p class="successBlock">{{ success }}</p>
+        }
+
+        <div class="actions">
+          <button class="ghost" type="button" (click)="resetForm()" [disabled]="saving">
+            Restablecer
+          </button>
+          <button class="btn" type="submit" [disabled]="saving || loading">
+            @if (saving) { Guardando… } @else { Guardar cambios }
+          </button>
+        </div>
+      </form>
+    }
+  </section>
+</app-owner-shell>

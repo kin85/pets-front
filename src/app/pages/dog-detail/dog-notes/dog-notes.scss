@@ -1,0 +1,271 @@
+.notes {
+  display: grid;
+  gap: 12px;
+}
+
+.notesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.leftActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search input {
+  width: min(360px, 100%);
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  outline: none;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pageInfo {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.table {
+  display: grid;
+  gap: 6px;
+}
+
+.createCard {
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(220px circle at top left, rgba(255, 255, 255, 0.08), transparent 55%),
+    rgba(255, 255, 255, 0.04);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 140px 1fr 140px;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.row.header {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.row.detail,
+.row.edit {
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+.cell.subject {
+  font-weight: 600;
+}
+
+.actionsHeader {
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.iconBtn {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 120ms ease;
+}
+
+.iconBtn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.iconBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.iconBtn.danger {
+  border-color: rgba(255, 180, 180, 0.35);
+  color: #ffb4b4;
+}
+
+.content {
+  padding: 8px 4px;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.editForm {
+  display: grid;
+  gap: 10px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field span {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn {
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+}
+
+.btn:disabled,
+.ghost:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ghost {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  cursor: pointer;
+}
+
+.muted {
+  margin: 0;
+  opacity: 0.75;
+}
+
+.error {
+  margin: 0;
+  color: #ffb4b4;
+}
+
+.dangerBtn {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 180, 180, 0.35);
+  background: rgba(255, 180, 180, 0.08);
+  color: #ffb4b4;
+  cursor: pointer;
+}
+
+.dangerBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(5, 9, 18, 0.62);
+  backdrop-filter: blur(8px);
+}
+
+.modalCard {
+  width: min(460px, 100%);
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(240px circle at top left, rgba(255, 255, 255, 0.1), transparent 55%),
+    rgba(25, 31, 45, 0.96);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.modalCard h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (max-width: 720px) {
+  .row {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+
+  .modalActions {
+    justify-content: stretch;
+  }
+}

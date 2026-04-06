@@ -1,0 +1,232 @@
+.page {
+  min-height: 100vh;
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.topbar {
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 22px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  margin: 2px 0 0 0;
+  opacity: 0.8;
+  font-size: 13px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.content {
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.card {
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.small {
+  font-size: 12px;
+}
+
+.btn {
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ghost {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.ghost:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+}
+
+.muted {
+  margin: 0;
+  opacity: 0.75;
+}
+
+.error {
+  margin: 0;
+  color: #ffb4b4;
+}
+
+/* "Perfiles" estilo Netflix */
+.profiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.profile {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  padding: 10px 8px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.profile:focus-visible {
+  outline: none;
+}
+
+.profile:focus-visible .avatar {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.10);
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    radial-gradient(120px circle at 30% 30%, rgba(255, 255, 255, 0.16), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(0, 0, 0, 0.10));
+  display: grid;
+  place-items: center;
+  transition: transform 140ms ease, border-color 140ms ease;
+
+  /* NUEVO: para imagen */
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar span {
+  font-size: 44px;
+  font-weight: 800;
+  opacity: 0.95;
+}
+
+.profile:hover .avatar {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.name {
+  font-size: 13px;
+  opacity: 0.9;
+  text-align: center;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* NUEVO: estilos de la imagen + letra fallback */
+.avatarImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.initial {
+  position: relative;
+  z-index: 1;
+}
+
+.empty {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  padding-top: 6px;
+}
+
+@media (max-width: 520px) {
+  .avatar {
+    width: 96px;
+    height: 96px;
+  }
+
+  .initial {
+  position: relative;
+  z-index: 1;
+  font-size: 44px;
+  font-weight: 800;
+  opacity: 0.95;
+}
+}

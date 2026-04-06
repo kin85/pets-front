@@ -1,0 +1,95 @@
+<div class="page">
+  <div class="card">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">🐾</div>
+      <div>
+        <h1>Crear cuenta</h1>
+        <p class="subtitle">Rellena tus datos</p>
+      </div>
+    </div>
+
+    <form (ngSubmit)="submit()" #f="ngForm" class="form">
+      <label class="field">
+        <span>Usuario</span>
+        <input
+          name="username"
+          [(ngModel)]="username"
+          required
+          autocomplete="username"
+          placeholder="usuario"
+        />
+      </label>
+
+      <label class="field">
+        <span>Email</span>
+        <input
+          name="email"
+          type="email"
+          [(ngModel)]="email"
+          required
+          autocomplete="email"
+          placeholder="usuario@email.com"
+        />
+      </label>
+
+      <label class="field">
+        <span>Contraseña</span>
+        <input
+          name="password"
+          type="password"
+          [(ngModel)]="password"
+          required
+          autocomplete="new-password"
+          placeholder="••••••••"
+        />
+      </label>
+
+      <label class="field">
+        <span>Nombre</span>
+        <input
+          name="name"
+          [(ngModel)]="name"
+          required
+          autocomplete="name"
+          placeholder="Tu nombre"
+        />
+      </label>
+
+      <label class="field">
+        <span>Dirección</span>
+        <input
+          name="address"
+          [(ngModel)]="address"
+          required
+          autocomplete="street-address"
+          placeholder="Calle, número, ciudad"
+        />
+      </label>
+
+      <label class="field">
+        <span>Teléfono</span>
+        <input
+          name="phone"
+          [(ngModel)]="phone"
+          required
+          autocomplete="tel"
+          placeholder="600123123"
+        />
+      </label>
+
+      <button class="btn" type="submit" [disabled]="loading || f.invalid">
+        {{ loading ? 'Creando…' : 'Crear cuenta' }}
+      </button>
+
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
+
+      <div class="divider"><span>o</span></div>
+
+      <a class="link" [routerLink]="['/login']">Ya tengo cuenta</a>
+    </form>
+  </div>
+
+  <p class="footnote">© {{ year }} Pets</p>
+</div>

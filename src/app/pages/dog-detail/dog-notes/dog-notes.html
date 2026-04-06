@@ -1,0 +1,175 @@
+<div class="notes">
+  <div class="notesHeader">
+    <div class="leftActions">
+      <div class="search">
+        <input
+          type="text"
+          placeholder="Buscar por asunto…"
+          [value]="searchTerm"
+          (input)="onSearchInput($any($event.target).value)"
+        />
+      </div>
+      <button class="btn" type="button" (click)="startCreate()" [disabled]="creatingNote">
+        Anadir nota
+      </button>
+    </div>
+
+    <div class="pagination">
+      <button class="ghost" type="button" (click)="previousPage()" [disabled]="pageIndex === 0">
+        Anterior
+      </button>
+      <span class="pageInfo">{{ pageIndex + 1 }} / {{ totalPages }}</span>
+      <button
+        class="ghost"
+        type="button"
+        (click)="nextPage()"
+        [disabled]="pageIndex + 1 >= totalPages"
+      >
+        Siguiente
+      </button>
+    </div>
+  </div>
+
+  @if (creating) {
+    <div class="createCard">
+      <form [formGroup]="createForm" (ngSubmit)="saveCreate()" class="editForm">
+        <label class="field">
+          <span>Fecha</span>
+          <input type="date" formControlName="noteDate" />
+        </label>
+        <label class="field">
+          <span>Asunto</span>
+          <input type="text" formControlName="subject" />
+        </label>
+        <label class="field">
+          <span>Contenido</span>
+          <textarea rows="4" formControlName="content"></textarea>
+        </label>
+        <div class="footer">
+          <button class="ghost" type="button" (click)="cancelCreate()" [disabled]="creatingNote">
+            Cancelar
+          </button>
+          <button class="btn" type="submit" [disabled]="createForm.invalid || creatingNote">
+            @if (creatingNote) { Guardando… } @else { Guardar nota }
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+
+  @if (loading) {
+    <p class="muted">Cargando…</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else if (noteRows.length === 0) {
+    <p class="muted">No hay notas para mostrar.</p>
+  } @else {
+    <div class="table">
+      <div class="row header">
+        <div>Fecha</div>
+        <div>Asunto</div>
+        <div class="actionsHeader">Acciones</div>
+      </div>
+
+      @for (note of noteRows; track note.id) {
+        <div class="row">
+          <div class="cell">{{ note.noteDate }}</div>
+          <div class="cell subject">{{ note.subject }}</div>
+          <div class="cell actions">
+            <button class="iconBtn" type="button" (click)="toggleExpand(note.id)">
+              <span class="srOnly">Ver nota</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 5c5 0 9.3 4 11 7-1.7 3-6 7-11 7S2.7 15 1 12c1.7-3 6-7 11-7Zm0 3.5A3.5 3.5 0 1 0 12 16a3.5 3.5 0 0 0 0-7Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+            <button class="iconBtn" type="button" (click)="startEdit(note.id)">
+              <span class="srOnly">Editar nota</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M4 17.3V20h2.7l8-8-2.7-2.7-8 8Zm12.7-8.6 1.9-1.9a1 1 0 0 0 0-1.4l-1-1a1 1 0 0 0-1.4 0l-1.9 1.9 2.4 2.4Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+            <button class="iconBtn danger" type="button" (click)="deleteNote(note.id)">
+              <span class="srOnly">Borrar nota</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M7 6h10l-1 14H8L7 6Zm9-3H8l-1 2h10l-1-2Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        @if (expandedId === note.id) {
+          <div class="row detail">
+            <div class="cell">
+              <div class="content">
+                {{ note.content }}
+              </div>
+            </div>
+          </div>
+        }
+
+        @if (editingId === note.id) {
+          <div class="row edit">
+            <div class="cell">
+              <form [formGroup]="editForm" (ngSubmit)="saveEdit()" class="editForm">
+                <label class="field">
+                  <span>Fecha</span>
+                  <input type="date" formControlName="noteDate" />
+                </label>
+                <label class="field">
+                  <span>Asunto</span>
+                  <input type="text" formControlName="subject" />
+                </label>
+                <label class="field">
+                  <span>Contenido</span>
+                  <textarea rows="4" formControlName="content"></textarea>
+                </label>
+                <div class="footer">
+                  <button class="ghost" type="button" (click)="cancelEdit()">Cancelar</button>
+                  <button class="btn" type="submit" [disabled]="editForm.invalid">Guardar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        }
+      }
+    </div>
+  }
+
+  @if (deletingId !== null) {
+    <div class="modalBackdrop" (click)="closeDeleteModal()">
+      <section class="modalCard" (click)="$event.stopPropagation()">
+        <h3>Eliminar nota</h3>
+        <p class="muted">
+          Esta accion borrara la nota y ya no aparecera en el historial del perro.
+        </p>
+        <div class="modalActions">
+          <button
+            class="ghost"
+            type="button"
+            (click)="closeDeleteModal()"
+            [disabled]="deletingNote"
+          >
+            Cancelar
+          </button>
+          <button
+            class="dangerBtn"
+            type="button"
+            (click)="confirmDelete()"
+            [disabled]="deletingNote"
+          >
+            @if (deletingNote) { Eliminando… } @else { Confirmar borrado }
+          </button>
+        </div>
+      </section>
+    </div>
+  }
+</div>

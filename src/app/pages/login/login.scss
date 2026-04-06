@@ -1,0 +1,126 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 22px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  margin: 2px 0 0 0;
+  opacity: 0.8;
+  font-size: 13px;
+}
+
+.form { display: grid; gap: 12px; }
+
+.field { display: grid; gap: 6px; }
+
+.field > span {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.18);
+  color: inherit;
+  outline: none;
+}
+
+input::placeholder { opacity: 0.55; }
+
+input:focus {
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08);
+}
+
+.btn {
+  margin-top: 4px;
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.error { margin: 0; color: #ffb4b4; font-size: 13px; }
+
+.divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.8;
+  margin-top: 6px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.divider > span { font-size: 12px; }
+
+.link {
+  display: inline-flex;
+  justify-content: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.06);
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.link:hover { border-color: rgba(255, 255, 255, 0.28); transform: translateY(-1px); }
+
+.footnote { margin: 14px 0 0 0; opacity: 0.6; font-size: 12px; }

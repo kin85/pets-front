@@ -1,0 +1,52 @@
+<app-owner-shell section="vets">
+  <section class="card">
+    <div class="intro">
+      <h2>Veterinarios</h2>
+      <p class="muted">Clinicas y centros veterinarios disponibles para consultar o contactar.</p>
+    </div>
+
+    @if (loading) {
+      <p class="muted">Cargando…</p>
+    } @else if (error) {
+      <p class="error">{{ error }}</p>
+    } @else if (veterinaries.length === 0) {
+      <p class="muted">No hay veterinarios disponibles.</p>
+    } @else {
+      <div class="grid">
+        @for (vet of veterinaries; track vet.id) {
+          <article class="vetCard">
+            <div class="cardTop">
+              <div>
+                <h3>{{ vet.name }}</h3>
+                <p class="address">{{ vet.address }}</p>
+              </div>
+              @if (vet.emergencies) {
+                <span class="badge">Urgencias</span>
+              }
+            </div>
+
+            <div class="details">
+              <div class="detail">
+                <span class="label">Telefono</span>
+                <a class="value link" [href]="'tel:' + vet.phone">{{ vet.phone }}</a>
+              </div>
+
+              <div class="detail">
+                <span class="label">Horario</span>
+                <span class="value">{{ vet.schedule || 'Horario no disponible' }}</span>
+              </div>
+            </div>
+
+            @if (vet.url) {
+              <div class="footer">
+                <a class="actionBtn" [href]="vet.url" target="_blank" rel="noreferrer">
+                  Abrir web
+                </a>
+              </div>
+            }
+          </article>
+        }
+      </div>
+    }
+  </section>
+</app-owner-shell>

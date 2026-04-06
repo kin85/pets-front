@@ -1,0 +1,129 @@
+<app-owner-shell section="dogs">
+  <section class="card">
+    @if (loading) {
+      <p class="muted">Cargando…</p>
+    } @else if (error) {
+      <p class="error">{{ error }}</p>
+    } @else if (visit) {
+      <div class="topRow">
+        <div class="intro">
+          <h2>{{ visit.reason }}</h2>
+          <p class="muted">{{ visit.visitDate }} · {{ visit.veterinaryName }}</p>
+        </div>
+
+        <button class="ghost" type="button" (click)="goBack()">Volver</button>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <span>Perro</span>
+          <div class="value">{{ visit.dogName }}</div>
+        </div>
+
+        <div class="field">
+          <span>Veterinario</span>
+          <div class="value">{{ visit.veterinaryName }}</div>
+        </div>
+
+        <div class="field">
+          <span>Fecha</span>
+          <div class="value">{{ visit.visitDate }}</div>
+        </div>
+
+        <div class="field">
+          <span>Asunto</span>
+          <div class="value">{{ visit.reason }}</div>
+        </div>
+
+        <div class="field full">
+          <span>Diagnostico</span>
+          <div class="value">{{ visit.diagnosis || 'Sin diagnostico registrado' }}</div>
+        </div>
+
+        <div class="field full">
+          <span>Observaciones</span>
+          <div class="value">{{ visit.observations || 'Sin observaciones registradas' }}</div>
+        </div>
+      </div>
+
+      <section class="treatmentsSection">
+        <div class="treatmentHeader">
+          <div>
+            <h3>Tratamiento</h3>
+            <p class="muted">Medicacion, dosis y seguimiento asociados a esta visita.</p>
+          </div>
+
+          @if (!treatments.length) {
+            <a
+              class="ghost linkBtn"
+              [routerLink]="['/veterinary-visits', visit.id, 'treatments', 'new']"
+              [queryParams]="dogId ? { dogId: dogId } : null"
+            >
+              Anadir tratamiento
+            </a>
+          }
+        </div>
+
+        @if (loadingTreatments) {
+          <p class="muted">Cargando tratamientos…</p>
+        } @else if (!treatments.length) {
+          <div class="treatmentEmpty">
+            <p class="muted">No hay tratamiento asociado a esta visita.</p>
+          </div>
+        } @else {
+          <div class="treatmentList">
+            @for (treatment of treatments; track treatment.id) {
+              <article class="treatmentCard">
+                <div class="treatmentCardTop">
+                  <div>
+                    <strong>{{ treatment.medicineName }}</strong>
+                    <p class="muted">
+                      {{ treatment.startDate }}
+                      @if (treatment.endDate) {
+                        <span> · {{ treatment.endDate }}</span>
+                      }
+                    </p>
+                  </div>
+                  <a
+                    class="ghost linkBtn"
+                    [routerLink]="['/veterinary-visits', visit.id, 'treatments', treatment.id, 'edit']"
+                    [queryParams]="dogId ? { dogId: dogId } : null"
+                  >
+                    Editar
+                  </a>
+                </div>
+
+                <div class="treatmentGrid">
+                  <div class="field">
+                    <span>Descripcion</span>
+                    <div class="value">{{ treatment.description }}</div>
+                  </div>
+
+                  <div class="field">
+                    <span>Dosis</span>
+                    <div class="value">{{ treatment.dose || 'Sin dosis indicada' }}</div>
+                  </div>
+
+                  <div class="field">
+                    <span>Frecuencia</span>
+                    <div class="value">{{ treatment.frequency || 'Sin frecuencia indicada' }}</div>
+                  </div>
+
+                  <div class="field">
+                    <span>Via</span>
+                    <div class="value">{{ treatment.administrationRoute || 'Sin via indicada' }}</div>
+                  </div>
+
+                  <div class="field full">
+                    <span>Instrucciones</span>
+                    <div class="value">{{ treatment.instructions || 'Sin instrucciones registradas' }}</div>
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+        }
+      </section>
+    }
+  </section>
+</app-owner-shell>

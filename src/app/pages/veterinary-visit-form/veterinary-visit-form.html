@@ -1,0 +1,74 @@
+<app-owner-shell section="dogs">
+  <section class="card">
+    <div class="intro">
+      <h2>@if (visitId) { Modificar visita veterinaria } @else { Anadir visita veterinaria }</h2>
+      <p class="muted">
+        @if (visitId) {
+          Actualiza la visita y volveras al listado del perro al guardar o cancelar.
+        } @else {
+          Crea una nueva visita y volveras al listado del perro al guardar o cancelar.
+        }
+      </p>
+    </div>
+
+    @if (loadingVisit) {
+      <p class="muted">Cargando visita…</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="save()" class="visitForm">
+      <div class="formGrid">
+        <label class="field">
+          <span>Fecha</span>
+          <input type="date" formControlName="visitDate" />
+          @if (form.controls.visitDate.touched && form.controls.visitDate.invalid) {
+            <small class="errorText">La fecha es obligatoria.</small>
+          }
+        </label>
+
+        <label class="field">
+          <span>Veterinario (opcional)</span>
+          <select formControlName="veterinaryId">
+            <option value="">Sin asignar</option>
+            @for (vet of veterinaries; track vet.id) {
+              <option [value]="vet.id">{{ vet.name }}</option>
+            }
+          </select>
+          @if (loadingVeterinaries) {
+            <small class="muted">Cargando veterinarios…</small>
+          } @else if (!veterinaries.length) {
+            <small class="muted">No hay veterinarios disponibles.</small>
+          }
+        </label>
+      </div>
+
+      <label class="field">
+        <span>Asunto</span>
+        <input type="text" formControlName="reason" />
+        @if (form.controls.reason.touched && form.controls.reason.invalid) {
+          <small class="errorText">El asunto es obligatorio.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Diagnostico</span>
+        <textarea rows="4" formControlName="diagnosis"></textarea>
+      </label>
+
+      <label class="field">
+        <span>Observaciones</span>
+        <textarea rows="4" formControlName="observations"></textarea>
+      </label>
+
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
+
+      <div class="footer">
+        <button class="ghost" type="button" (click)="cancel()" [disabled]="saving">Cancelar</button>
+        <button class="btn" type="submit" [disabled]="saving">
+          @if (saving) { Guardando… } @else if (visitId) { Guardar cambios } @else { Guardar visita }
+        </button>
+      </div>
+    </form>
+  </section>
+</app-owner-shell>

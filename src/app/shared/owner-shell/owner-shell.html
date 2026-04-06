@@ -1,0 +1,43 @@
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">🐾</div>
+      <div>
+        <h1>Appets</h1>
+        <p class="subtitle">Tu espacio para cuidar de ellos</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="ghost" type="button" (click)="logout()">Cerrar sesion</button>
+    </div>
+  </header>
+
+  <nav class="mainNav" aria-label="Navegacion principal">
+    <a
+      class="navLink"
+      [class.is-active]="section === 'dogs'"
+      [routerLink]="['/home']"
+    >
+      Mis perros
+    </a>
+    <a
+      class="navLink"
+      [class.is-active]="section === 'vets'"
+      [routerLink]="['/veterinarians']"
+    >
+      Veterinarios
+    </a>
+    <a
+      class="navLink"
+      [class.is-active]="section === 'profile'"
+      [routerLink]="['/profile']"
+    >
+      Editar perfil
+    </a>
+  </nav>
+
+  <main class="content">
+    <ng-content></ng-content>
+  </main>
+</div>

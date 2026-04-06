@@ -1,0 +1,80 @@
+<app-owner-shell section="dogs">
+  <div class="content">
+    <section class="card">
+      <div class="intro">
+        <h2>Añadir perro</h2>
+        <p class="subtitle">Completa los datos y sube una foto si la tienes preparada.</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+        <div class="grid">
+          <label class="field">
+            <span>Nombre</span>
+            <input type="text" formControlName="name" placeholder="Pepe" />
+            @if (form.controls.name.touched && form.controls.name.invalid) {
+              <small class="error">El nombre es obligatorio (mín. 2).</small>
+            }
+          </label>
+
+          <label class="field">
+            <span>Raza</span>
+            <input type="text" formControlName="breed" placeholder="Mestizo" />
+            @if (form.controls.breed.touched && form.controls.breed.invalid) {
+              <small class="error">La raza es obligatoria (mín. 2).</small>
+            }
+          </label>
+
+          <label class="field">
+            <span>Fecha de nacimiento</span>
+            <input type="date" formControlName="birthDate" />
+            @if (form.controls.birthDate.touched && form.controls.birthDate.invalid) {
+              <small class="error">La fecha es obligatoria.</small>
+            }
+          </label>
+
+          <label class="field">
+            <span>Microchip</span>
+            <input type="text" formControlName="microchip" placeholder="1234567890" />
+            @if (form.controls.microchip.touched && form.controls.microchip.invalid) {
+              <small class="error">El microchip es obligatorio.</small>
+            }
+          </label>
+        </div>
+
+        <div class="upload">
+          <div class="preview">
+            @if (previewUrl) {
+              <img [src]="previewUrl" alt="Vista previa" />
+            } @else {
+              <div class="previewPlaceholder">
+                <span>Sin foto</span>
+              </div>
+            }
+          </div>
+
+          <div class="uploadRight">
+            <label class="fileBtn">
+              <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+              Elegir foto
+            </label>
+            <p class="muted small">PNG/JPG. Maximo 5 MB. Opcional por ahora.</p>
+            @if (photoError) {
+              <small class="error">{{ photoError }}</small>
+            }
+          </div>
+        </div>
+
+        @if (error) {
+          <p class="errorBlock">{{ error }}</p>
+        }
+
+        <div class="footer">
+          <button class="ghost" type="button" (click)="cancel()" [disabled]="loading">Cancelar</button>
+          <button class="btn" type="submit" [disabled]="loading">
+            @if (loading) { Guardando… } @else { Guardar }
+          </button>
+        </div>
+      </form>
+    </section>
+  </div>
+</app-owner-shell>

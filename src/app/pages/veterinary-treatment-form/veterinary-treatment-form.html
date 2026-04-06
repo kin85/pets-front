@@ -1,0 +1,87 @@
+<app-owner-shell section="dogs">
+  <section class="card">
+    <div class="intro">
+      <h2>@if (treatmentId) { Modificar tratamiento } @else { Anadir tratamiento }</h2>
+      <p class="muted">
+        @if (treatmentId) {
+          Actualiza el tratamiento y volveras a la visita al guardar o cancelar.
+        } @else {
+          Crea el tratamiento y volveras a la visita al guardar o cancelar.
+        }
+      </p>
+    </div>
+
+    @if (loading) {
+      <p class="muted">Cargando tratamiento…</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="save()" class="form">
+      <div class="grid">
+        <label class="field">
+          <span>Medicamento</span>
+          <input type="text" formControlName="medicineName" />
+          @if (form.controls.medicineName.touched && form.controls.medicineName.invalid) {
+            <small class="errorText">El medicamento es obligatorio.</small>
+          }
+        </label>
+
+        <label class="field">
+          <span>Via de administracion</span>
+          <select formControlName="administrationRoute">
+            <option value="">Sin especificar</option>
+            @for (route of administrationRoutes; track route.value) {
+              <option [value]="route.value">{{ route.label }}</option>
+            }
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Fecha de inicio</span>
+          <input type="date" formControlName="startDate" />
+          @if (form.controls.startDate.touched && form.controls.startDate.invalid) {
+            <small class="errorText">La fecha de inicio es obligatoria.</small>
+          }
+        </label>
+
+        <label class="field">
+          <span>Fecha de fin</span>
+          <input type="date" formControlName="endDate" />
+        </label>
+
+        <label class="field">
+          <span>Dosis</span>
+          <input type="text" formControlName="dose" />
+        </label>
+
+        <label class="field">
+          <span>Frecuencia</span>
+          <input type="text" formControlName="frequency" />
+        </label>
+      </div>
+
+      <label class="field">
+        <span>Descripcion</span>
+        <textarea rows="4" formControlName="description"></textarea>
+        @if (form.controls.description.touched && form.controls.description.invalid) {
+          <small class="errorText">La descripcion es obligatoria.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Instrucciones</span>
+        <textarea rows="4" formControlName="instructions"></textarea>
+      </label>
+
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
+
+      <div class="footer">
+        <button class="ghost" type="button" (click)="cancel()" [disabled]="saving">Cancelar</button>
+        <button class="btn" type="submit" [disabled]="saving">
+          @if (saving) { Guardando… } @else if (treatmentId) { Guardar cambios } @else { Guardar tratamiento }
+        </button>
+      </div>
+    </form>
+  </section>
+</app-owner-shell>

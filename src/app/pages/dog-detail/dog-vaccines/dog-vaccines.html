@@ -1,0 +1,110 @@
+<div class="vaccines">
+  @if (loading) {
+    <p class="muted">Cargando…</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else {
+    <div class="columns">
+      <section class="column">
+        <div class="columnHeader">
+          <h3>Vigentes</h3>
+          <span class="count">{{ applied.length }}</span>
+        </div>
+
+        @if (applied.length === 0) {
+          <p class="muted">No hay vacunas aplicadas vigentes.</p>
+        } @else {
+          <div class="list">
+            @for (vaccine of applied; track vaccine.id) {
+              <article class="item">
+                <div class="itemTop">
+                  <strong>{{ vaccine.name }}</strong>
+                </div>
+                <p class="meta">Aplicada: {{ vaccine.lastApplicationDate }}</p>
+                <p class="meta">Caduca: {{ vaccine.nextDueDate }}</p>
+              </article>
+            }
+          </div>
+        }
+      </section>
+
+      <section class="column">
+        <div class="columnHeader">
+          <h3>Pendientes</h3>
+          <span class="count">{{ pending.length }}</span>
+        </div>
+
+        @if (pending.length === 0) {
+          <p class="muted">No hay vacunas pendientes.</p>
+        } @else {
+          <div class="list">
+            @for (vaccine of pending; track vaccine.id) {
+              <article class="item pendingItem">
+                <div class="itemTop">
+                  <strong>{{ vaccine.name }}</strong>
+                  @if (vaccine.optional) {
+                    <span class="badge">Opcional</span>
+                  }
+                </div>
+
+                @if (applyingId === vaccine.id) {
+                  <form [formGroup]="applyForm" (ngSubmit)="saveApply(vaccine.id)" class="applyForm">
+                    <label class="field">
+                      <span>Fecha de aplicacion</span>
+                      <input type="date" formControlName="applicationDate" />
+                    </label>
+                    <div class="formActions">
+                      <button
+                        class="ghost"
+                        type="button"
+                        (click)="cancelApply()"
+                        [disabled]="applying"
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        class="applyBtn"
+                        type="submit"
+                        [disabled]="applyForm.invalid || applying"
+                      >
+                        @if (applying) { Guardando… } @else { Aplicar }
+                      </button>
+                    </div>
+                  </form>
+                } @else {
+                  <button class="applyToggle" type="button" (click)="startApply(vaccine.id)">
+                    Aplicar vacuna
+                  </button>
+                }
+              </article>
+            }
+          </div>
+        }
+      </section>
+
+      <section class="column">
+        <div class="columnHeader">
+          <h3>Proximas</h3>
+          <span class="count">{{ upcoming.length }}</span>
+        </div>
+
+        @if (upcoming.length === 0) {
+          <p class="muted">No hay proximas vacunas por vencer.</p>
+        } @else {
+          <div class="list">
+            @for (vaccine of upcoming; track vaccine.id) {
+              <article class="item warning">
+                <div class="itemTop">
+                  <strong>{{ vaccine.name }}</strong>
+                  <span class="badge accent">{{ vaccine.daysUntilDue }} dias</span>
+                </div>
+                <p class="meta">Aplicada: {{ vaccine.lastApplicationDate }}</p>
+                <p class="meta">Renovar antes de: {{ vaccine.nextDueDate }}</p>
+              </article>
+            }
+          </div>
+        }
+      </section>
+    </div>
+  }
+</div>
