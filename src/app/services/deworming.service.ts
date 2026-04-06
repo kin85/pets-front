@@ -36,8 +36,8 @@ export interface DewormingOverviewDto {
 
 @Injectable({ providedIn: 'root' })
 export class DewormingService {
-  private readonly dogsUrl = 'http://localhost:8080/api/dogs';
-  private readonly dewormingUrl = 'http://localhost:8080/api/deworming';
+  private readonly dogsUrl = 'https://pets-x11k.onrender.com/api/dogs';
+  private readonly dewormingUrl = 'https://pets-x11k.onrender.com/api/deworming';
 
   constructor(private http: HttpClient) {}
 

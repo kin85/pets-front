@@ -48,7 +48,7 @@ export interface DatatablesResponse<T> {
 
 @Injectable({ providedIn: 'root' })
 export class VeterinaryVisitService {
-  private readonly baseUrl = 'http://localhost:8080/api/veterinary-visits';
+  private readonly baseUrl = 'https://pets-x11k.onrender.com/api/veterinary-visits';
 
   constructor(private http: HttpClient) {}
 

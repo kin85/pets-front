@@ -23,7 +23,7 @@ export interface DogUpdateResponse {
 
 @Injectable({ providedIn: 'root' })
 export class DogService {
-  private readonly baseUrl = 'http://localhost:8080/api/dogs';
+  private readonly baseUrl = 'https://pets-x11k.onrender.com/api/dogs';
 
   constructor(private http: HttpClient) {}
 

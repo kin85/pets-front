@@ -44,8 +44,8 @@ export interface VaccineOverviewDto {
 
 @Injectable({ providedIn: 'root' })
 export class VaccineService {
-  private readonly vaccinesUrl = 'http://localhost:8080/api/vaccines';
-  private readonly dogsUrl = 'http://localhost:8080/api/dogs';
+  private readonly vaccinesUrl = 'https://pets-x11k.onrender.com/api/vaccines';
+  private readonly dogsUrl = 'https://pets-x11k.onrender.com/api/dogs';
 
   constructor(private http: HttpClient) {}
 

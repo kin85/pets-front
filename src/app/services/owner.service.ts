@@ -20,7 +20,7 @@ export interface UpdateOwnerProfileRequest {
 
 @Injectable({ providedIn: 'root' })
 export class OwnerService {
-  private readonly baseUrl = 'http://localhost:8080/api/owners/me';
+  private readonly baseUrl = 'https://pets-x11k.onrender.com/api/owners/me';
 
   constructor(private http: HttpClient) {}
 

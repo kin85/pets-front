@@ -31,7 +31,7 @@ export interface VeterinaryTreatmentViewDto {
 
 @Injectable({ providedIn: 'root' })
 export class VeterinaryTreatmentService {
-  private readonly baseUrl = 'http://localhost:8080/api/veterinary-treatments';
+  private readonly baseUrl = 'https://pets-x11k.onrender.com/api/veterinary-treatments';
 
   constructor(private http: HttpClient) {}
 

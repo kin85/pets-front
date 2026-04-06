@@ -53,7 +53,7 @@ export interface NoteSearchDto {
 
 @Injectable({ providedIn: 'root' })
 export class NoteService {
-  private readonly baseUrl = 'http://localhost:8080/api/notes';
+  private readonly baseUrl = 'https://pets-x11k.onrender.com/api/notes';
 
   constructor(private http: HttpClient) {}
 

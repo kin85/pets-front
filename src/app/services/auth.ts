@@ -24,7 +24,7 @@ export interface RegisterRequest {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   // Ajusta si tu back usa otra ruta
-  private readonly baseUrl = 'http://localhost:8080/auth';
+  private readonly baseUrl = 'https://pets-x11k.onrender.com/auth';
 
   constructor(private http: HttpClient) {}
 

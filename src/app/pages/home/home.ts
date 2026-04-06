@@ -26,8 +26,8 @@ export class Home implements OnInit, OnDestroy {
 
   data?: { name: string; dogs: DogVm[] };
 
-  private readonly homeUrl = 'http://localhost:8080/api/owners/me/home';
-  private readonly dogsUrl = 'http://localhost:8080/api/dogs';
+  private readonly homeUrl = 'https://pets-x11k.onrender.com/api/owners/me/home';
+  private readonly dogsUrl = 'https://pets-x11k.onrender.com/api/dogs';
 
   private objectUrls: string[] = [];
 
