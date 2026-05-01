@@ -75,6 +75,13 @@ export class DogDetail implements OnInit, OnDestroy {
   }
 
   private loadPhoto(): void {
+    if (this.dog?.photoUrl) {
+      this.clearPhotoUrl();
+      this.photoUrl = this.dog.photoUrl;
+      this.cdr.detectChanges();
+      return;
+    }
+
     if (!this.dogId) return;
     this.dogService.getDogPhoto(this.dogId, this.photoRefreshKey).subscribe({
       next: (blob) => {
@@ -237,7 +244,9 @@ export class DogDetail implements OnInit, OnDestroy {
 
   private clearPhotoUrl(): void {
     if (!this.photoUrl) return;
-    URL.revokeObjectURL(this.photoUrl);
+    if (this.photoUrl.startsWith('blob:')) {
+      URL.revokeObjectURL(this.photoUrl);
+    }
     this.photoUrl = null;
   }
 

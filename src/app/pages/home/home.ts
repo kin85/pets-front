@@ -4,14 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { OwnerShell } from '../../shared/owner-shell/owner-shell';
 
-type DogHomeDto = { id: number; name: string; hasPhoto: boolean };
+type DogHomeDto = { id: number; name: string; hasPhoto: boolean; photoUrl?: string | null };
 
 type OwnerHomeDto = {
   name: string;
   dogs: DogHomeDto[];
 };
 
-type DogVm = DogHomeDto & { photoUrl?: string };
+type DogVm = DogHomeDto & { photoUrl?: string | null };
 
 @Component({
   selector: 'app-home',
@@ -77,7 +77,7 @@ export class Home implements OnInit, OnDestroy {
 
   private loadDogsPhotos(dogs: DogVm[]): void {
     for (const dog of dogs) {
-      if (!dog.hasPhoto) {
+      if (!dog.hasPhoto || dog.photoUrl) {
         continue;
       }
 

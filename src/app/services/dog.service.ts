@@ -10,6 +10,7 @@ export interface DogDetailResponse {
   birthDate: string;
   microchip: string;
   ownerName: string;
+  photoUrl?: string | null;
 }
 
 export interface DogUpdateResponse {
@@ -19,6 +20,7 @@ export interface DogUpdateResponse {
   birthDate: string;
   microchip: string;
   ownerName: string;
+  photoUrl?: string | null;
 }
 
 @Injectable({ providedIn: 'root' })

@@ -163,6 +163,16 @@ Notas:
 
 - `createDog` y `updateDog` usan `multipart/form-data`
 - `birthDate` sigue yendo como string ISO en multipart
+- las fotos nuevas ya no se guardan en disco local del backend
+- backend sube a ImageKit y guarda la referencia serializada en `photoPath` con formato `imagekit|fileId|url`
+- `DogHomeDto` y `DogViewDto` ya devuelven `photoUrl`
+- el front usa `photoUrl` directo y deja `/api/dogs/{id}/photo` solo como fallback para fotos locales heredadas
+
+Variables necesarias en backend para fotos:
+
+- `IMAGEKIT_PUBLIC_KEY`
+- `IMAGEKIT_PRIVATE_KEY`
+- `IMAGEKIT_URL_ENDPOINT`
 
 ### Vacunas
 
