@@ -1,12 +1,10 @@
 .card {
   padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-border);
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, var(--surface-panel), var(--surface-panel-strong));
   backdrop-filter: blur(10px);
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.12),
-    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  box-shadow: var(--shadow-card);
 }
 
 .intro {
@@ -30,8 +28,8 @@
   gap: 4px;
   padding: 16px;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-subtle-panel);
 }
 
 .summaryLabel {
@@ -69,15 +67,15 @@ input {
   width: 100%;
   padding: 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-field);
   color: inherit;
   outline: none;
 }
 
 input:focus {
-  border-color: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08);
+  border-color: var(--surface-border-intense);
+  box-shadow: var(--focus-ring);
 }
 
 input[readonly] {
@@ -97,13 +95,15 @@ input[readonly] {
   border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
-  transition: transform 120ms ease, opacity 120ms ease;
+  background: var(--button-primary);
+  color: var(--button-primary-text);
+  box-shadow: 0 12px 26px rgba(23, 60, 130, 0.28);
+  transition: transform 120ms ease, opacity 120ms ease, box-shadow 120ms ease;
 }
 
 .btn:hover {
   transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(23, 60, 130, 0.34);
 }
 
 .btn:disabled {
@@ -115,14 +115,15 @@ input[readonly] {
 .ghost {
   padding: 12px 14px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--surface-border);
+  background: var(--button-ghost);
   color: inherit;
   cursor: pointer;
 }
 
 .ghost:hover {
-  border-color: rgba(255, 255, 255, 0.28);
+  border-color: var(--surface-border-strong);
+  background: var(--button-ghost-hover);
   transform: translateY(-1px);
 }
 
@@ -134,7 +135,7 @@ input[readonly] {
 
 .error {
   margin: 0;
-  color: #ffb4b4;
+  color: var(--danger-text);
   font-size: 12px;
 }
 
@@ -146,15 +147,15 @@ input[readonly] {
 }
 
 .errorBlock {
-  border: 1px solid rgba(255, 180, 180, 0.25);
-  background: rgba(255, 180, 180, 0.08);
-  color: #ffb4b4;
+  border: 1px solid var(--danger-border);
+  background: var(--danger-bg);
+  color: var(--danger-text);
 }
 
 .successBlock {
-  border: 1px solid rgba(170, 236, 190, 0.22);
-  background: rgba(170, 236, 190, 0.08);
-  color: #b7f2c5;
+  border: 1px solid var(--success-border);
+  background: var(--success-bg);
+  color: var(--success-text);
 }
 
 .muted {

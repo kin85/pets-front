@@ -27,11 +27,20 @@
   height: 52px;
   display: grid;
   place-items: center;
+  overflow: hidden;
   border-radius: 16px;
+  border: 1px solid var(--surface-border-strong);
   background:
-    radial-gradient(60px circle at 30% 30%, rgba(255, 255, 255, 0.14), transparent 55%),
-    rgba(255, 255, 255, 0.08);
-  font-size: 24px;
+    radial-gradient(60px circle at 30% 30%, rgba(255, 255, 255, 0.22), transparent 55%),
+    linear-gradient(135deg, rgba(41, 231, 244, 0.9), rgba(23, 60, 130, 0.88));
+  box-shadow: 0 14px 30px rgba(23, 60, 130, 0.22);
+}
+
+.logoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 h1 {
@@ -42,7 +51,7 @@ h1 {
 
 .subtitle {
   margin: 4px 0 0 0;
-  opacity: 0.72;
+  color: var(--text-secondary);
   font-size: 13px;
 }
 
@@ -60,35 +69,38 @@ h1 {
   gap: 10px;
   padding: 12px;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04)),
-    rgba(10, 16, 28, 0.7);
-  box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.14),
-    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  border: 1px solid var(--surface-border);
+  background: var(--surface-nav);
+  box-shadow: var(--shadow-card);
 }
 
 .navLink {
   padding: 10px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
-  color: inherit;
+  border: 1px solid var(--surface-border);
+  background: var(--surface-chip);
+  color: var(--text-secondary);
   text-decoration: none;
   font-size: 13px;
   font-weight: 600;
-  transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+  transition:
+    transform 120ms ease,
+    border-color 120ms ease,
+    background 120ms ease,
+    color 120ms ease;
 }
 
 .navLink:hover {
   transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: var(--surface-border-strong);
+  background: var(--surface-chip-hover);
+  color: var(--text-primary);
 }
 
 .navLink.is-active {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--surface-border-intense);
+  background: var(--surface-selected);
+  color: var(--text-primary);
 }
 
 .content {
@@ -100,15 +112,19 @@ h1 {
 .ghost {
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--surface-border);
+  background: var(--button-ghost);
   color: inherit;
   cursor: pointer;
-  transition: border-color 120ms ease, transform 120ms ease;
+  transition:
+    border-color 120ms ease,
+    transform 120ms ease,
+    background 120ms ease;
 }
 
 .ghost:hover {
-  border-color: rgba(255, 255, 255, 0.28);
+  border-color: var(--surface-border-strong);
+  background: var(--button-ghost-hover);
   transform: translateY(-1px);
 }
 

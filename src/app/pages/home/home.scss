@@ -28,8 +28,13 @@
   display: grid;
   place-items: center;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--surface-border-strong);
+  background:
+    radial-gradient(60px circle at 30% 30%, rgba(255, 255, 255, 0.22), transparent 55%),
+    linear-gradient(135deg, rgba(41, 231, 244, 0.9), rgba(23, 60, 130, 0.88));
+  color: #04131c;
   font-size: 22px;
+  box-shadow: 0 12px 26px rgba(23, 60, 130, 0.22);
 }
 
 h1 {
@@ -40,7 +45,7 @@ h1 {
 
 .subtitle {
   margin: 2px 0 0 0;
-  opacity: 0.8;
+  color: var(--text-secondary);
   font-size: 13px;
 }
 
@@ -58,13 +63,11 @@ h1 {
 
 .card {
   padding: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-border);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, var(--surface-panel), var(--surface-panel-strong));
   backdrop-filter: blur(10px);
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.12),
-    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  box-shadow: var(--shadow-card);
 }
 
 .sectionHeader {
@@ -90,13 +93,15 @@ h2 {
   border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
-  transition: transform 120ms ease, opacity 120ms ease;
+  background: var(--button-primary);
+  color: var(--button-primary-text);
+  box-shadow: 0 12px 26px rgba(23, 60, 130, 0.28);
+  transition: transform 120ms ease, opacity 120ms ease, box-shadow 120ms ease;
 }
 
 .btn:hover {
   transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(23, 60, 130, 0.34);
 }
 
 .btn:disabled {
@@ -108,15 +113,16 @@ h2 {
 .ghost {
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--surface-border);
+  background: var(--button-ghost);
   color: inherit;
   cursor: pointer;
-  transition: border-color 120ms ease, transform 120ms ease;
+  transition: border-color 120ms ease, transform 120ms ease, background 120ms ease;
 }
 
 .ghost:hover {
-  border-color: rgba(255, 255, 255, 0.28);
+  border-color: var(--surface-border-strong);
+  background: var(--button-ghost-hover);
   transform: translateY(-1px);
 }
 
@@ -127,7 +133,7 @@ h2 {
 
 .error {
   margin: 0;
-  color: #ffb4b4;
+  color: var(--danger-text);
 }
 
 /* "Perfiles" estilo Netflix */
@@ -154,19 +160,20 @@ h2 {
 }
 
 .profile:focus-visible .avatar {
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.10);
+  box-shadow: var(--focus-ring);
 }
 
 .avatar {
   width: 110px;
   height: 110px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--surface-border);
   background:
-    radial-gradient(120px circle at 30% 30%, rgba(255, 255, 255, 0.16), transparent 55%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(0, 0, 0, 0.10));
+    radial-gradient(120px circle at 30% 30%, rgba(41, 231, 244, 0.18), transparent 55%),
+    var(--surface-avatar);
   display: grid;
   place-items: center;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
   transition: transform 140ms ease, border-color 140ms ease;
 
   /* NUEVO: para imagen */
@@ -182,7 +189,7 @@ h2 {
 
 .profile:hover .avatar {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.28);
+  border-color: var(--surface-border-strong);
 }
 
 .name {

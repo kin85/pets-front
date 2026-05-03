@@ -15,32 +15,32 @@
   gap: 14px;
   padding: 18px;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-border);
   background:
-    radial-gradient(220px circle at top left, rgba(255, 255, 255, 0.08), transparent 55%),
-    rgba(255, 255, 255, 0.04);
+    radial-gradient(220px circle at top left, rgba(41, 231, 244, 0.14), transparent 55%),
+    var(--surface-accent-panel);
 }
 
 .card.is-active {
-  border-color: rgba(123, 255, 185, 0.3);
+  border-color: var(--surface-border-intense);
   background:
-    radial-gradient(180px circle at top left, rgba(123, 255, 185, 0.12), transparent 55%),
-    rgba(255, 255, 255, 0.04);
+    radial-gradient(180px circle at top left, rgba(41, 231, 244, 0.18), transparent 55%),
+    var(--surface-active-panel);
 }
 
 .card.is-warning {
-  border-color: rgba(255, 196, 107, 0.32);
+  border-color: var(--warning-border);
   background:
-    radial-gradient(180px circle at top left, rgba(255, 196, 107, 0.14), transparent 55%),
-    rgba(255, 255, 255, 0.04);
+    radial-gradient(180px circle at top left, rgba(255, 196, 107, 0.16), transparent 55%),
+    var(--surface-warning-panel);
 }
 
 .card.is-expired,
 .card.is-missing {
-  border-color: rgba(255, 180, 180, 0.24);
+  border-color: var(--danger-border);
   background:
-    radial-gradient(180px circle at top left, rgba(255, 180, 180, 0.12), transparent 55%),
-    rgba(255, 255, 255, 0.04);
+    radial-gradient(180px circle at top left, rgba(255, 152, 141, 0.16), transparent 55%),
+    var(--surface-danger-panel);
 }
 
 .cardHeader {
@@ -58,8 +58,8 @@
 .status {
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(123, 255, 185, 0.12);
-  color: #9de4b8;
+  background: rgba(41, 231, 244, 0.16);
+  color: var(--success-text);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -68,19 +68,19 @@
 }
 
 .status.active {
-  background: rgba(123, 255, 185, 0.12);
-  color: #9de4b8;
+  background: rgba(41, 231, 244, 0.16);
+  color: var(--success-text);
 }
 
 .status.warning {
-  background: rgba(255, 196, 107, 0.18);
-  color: #ffd595;
+  background: var(--warning-bg);
+  color: var(--warning-text);
 }
 
 .status.expired,
 .status.missing {
-  background: rgba(255, 180, 180, 0.14);
-  color: #ffb4b4;
+  background: var(--danger-bg);
+  color: var(--danger-text);
 }
 
 .details {
@@ -102,8 +102,8 @@
 .field strong {
   padding: 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-row);
   font-size: 14px;
 }
 
@@ -115,19 +115,19 @@
 }
 
 .notice.active {
-  border: 1px solid rgba(123, 255, 185, 0.18);
-  background: rgba(123, 255, 185, 0.05);
+  border: 1px solid var(--success-border);
+  background: var(--success-bg);
 }
 
 .notice.warning {
-  border-color: rgba(255, 196, 107, 0.24);
-  background: rgba(255, 196, 107, 0.08);
+  border-color: var(--warning-border);
+  background: var(--warning-bg);
 }
 
 .notice.expired,
 .notice.missing {
-  border-color: rgba(255, 180, 180, 0.24);
-  background: rgba(255, 180, 180, 0.08);
+  border-color: var(--danger-border);
+  background: var(--danger-bg);
 }
 
 .notice p,
@@ -146,7 +146,7 @@
 
 .error,
 .errorText {
-  color: #ffb4b4;
+  color: var(--danger-text);
 }
 
 .createForm {
@@ -164,8 +164,8 @@ input[type='text'],
 input[type='date'] {
   padding: 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-field);
   color: inherit;
   outline: none;
 }
@@ -189,24 +189,24 @@ input[type='date'] {
   border: 0;
   cursor: pointer;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
+  background: var(--button-primary);
+  color: var(--button-primary-text);
 }
 
 .dangerBtn {
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 180, 180, 0.35);
-  background: rgba(255, 180, 180, 0.08);
-  color: #ffb4b4;
+  border: 1px solid var(--danger-border);
+  background: var(--danger-bg);
+  color: var(--danger-text);
   cursor: pointer;
 }
 
 .ghost {
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--surface-border);
+  background: var(--button-ghost);
   color: inherit;
   cursor: pointer;
 }
@@ -225,7 +225,7 @@ input[type='date'] {
   display: grid;
   place-items: center;
   padding: 24px;
-  background: rgba(5, 9, 18, 0.62);
+  background: var(--backdrop);
   backdrop-filter: blur(8px);
 }
 
@@ -233,10 +233,10 @@ input[type='date'] {
   width: min(460px, 100%);
   padding: 20px;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--surface-border);
   background:
-    radial-gradient(240px circle at top left, rgba(255, 255, 255, 0.1), transparent 55%),
-    rgba(25, 31, 45, 0.96);
+    radial-gradient(240px circle at top left, rgba(41, 231, 244, 0.16), transparent 55%),
+    var(--surface-modal);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 }
 

@@ -9,42 +9,46 @@
   width: 100%;
   max-width: 520px;
   padding: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-border);
   border-radius: 16px;
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.12),
-    0 1px 0 rgba(255, 255, 255, 0.04) inset;
-  background: rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow-card);
+  background: linear-gradient(180deg, var(--surface-panel), var(--surface-panel-strong));
   backdrop-filter: blur(10px);
 }
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  margin-bottom: 24px;
+  text-align: center;
 }
 
-.logo {
-  width: 44px;
-  height: 44px;
+.brandLockup {
+  width: min(320px, 88%);
+  height: auto;
+  display: block;
+  margin-inline: auto;
+  filter: drop-shadow(0 16px 30px rgba(23, 60, 130, 0.24));
+}
+
+.brandCopy {
   display: grid;
-  place-items: center;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.12);
-  font-size: 22px;
+  gap: 4px;
+  justify-items: center;
 }
 
 h1 {
   margin: 0;
-  font-size: 20px;
+  font-size: 24px;
   letter-spacing: 0.2px;
 }
 
 .subtitle {
   margin: 2px 0 0 0;
-  opacity: 0.8;
+  color: var(--text-secondary);
   font-size: 13px;
+  line-height: 1.45;
 }
 
 .form {
@@ -66,8 +70,8 @@ input {
   width: 100%;
   padding: 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-field);
   color: inherit;
   outline: none;
 }
@@ -77,8 +81,8 @@ input::placeholder {
 }
 
 input:focus {
-  border-color: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08);
+  border-color: var(--surface-border-intense);
+  box-shadow: var(--focus-ring);
 }
 
 .btn {
@@ -89,13 +93,15 @@ input:focus {
   border-radius: 12px;
   cursor: pointer;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
-  transition: transform 120ms ease, opacity 120ms ease;
+  background: var(--button-primary);
+  color: var(--button-primary-text);
+  box-shadow: 0 12px 26px rgba(23, 60, 130, 0.28);
+  transition: transform 120ms ease, opacity 120ms ease, box-shadow 120ms ease;
 }
 
 .btn:hover {
   transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(23, 60, 130, 0.34);
 }
 
 .btn:disabled {
@@ -106,7 +112,7 @@ input:focus {
 
 .error {
   margin: 0;
-  color: #ffb4b4;
+  color: var(--danger-text);
   font-size: 13px;
 }
 
@@ -123,7 +129,7 @@ input:focus {
 .divider::after {
   content: '';
   height: 1px;
-  background: rgba(255, 255, 255, 0.18);
+  background: var(--surface-border);
 }
 
 .divider > span {
@@ -135,20 +141,21 @@ input:focus {
   justify-content: center;
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--surface-border);
   text-decoration: none;
   color: inherit;
-  background: rgba(255, 255, 255, 0.06);
-  transition: border-color 120ms ease, transform 120ms ease;
+  background: var(--button-ghost);
+  transition: border-color 120ms ease, transform 120ms ease, background 120ms ease;
 }
 
 .link:hover {
-  border-color: rgba(255, 255, 255, 0.28);
+  border-color: var(--surface-border-strong);
+  background: var(--button-ghost-hover);
   transform: translateY(-1px);
 }
 
 .footnote {
   margin: 14px 0 0 0;
-  opacity: 0.6;
+  color: var(--text-muted);
   font-size: 12px;
 }

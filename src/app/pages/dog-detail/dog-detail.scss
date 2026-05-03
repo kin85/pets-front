@@ -6,13 +6,11 @@
 
 .card {
   padding: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-border);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, var(--surface-panel), var(--surface-panel-strong));
   backdrop-filter: blur(10px);
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.12),
-    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  box-shadow: var(--shadow-card);
 }
 
 .pageIntro {
@@ -32,7 +30,7 @@
   gap: 8px;
   padding-bottom: 12px;
   margin-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--surface-border);
 }
 
 .header {
@@ -47,10 +45,10 @@
   width: 72px;
   height: 72px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--surface-border);
   background:
-    radial-gradient(120px circle at 30% 30%, rgba(255, 255, 255, 0.14), transparent 55%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(0, 0, 0, 0.10));
+    radial-gradient(120px circle at 30% 30%, rgba(41, 231, 244, 0.18), transparent 55%),
+    var(--surface-avatar);
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -89,17 +87,16 @@
 .tab {
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.04);
-  color: inherit;
+  border: 1px solid var(--surface-border);
+  background: var(--surface-chip);
+  color: var(--text-secondary);
   cursor: pointer;
   font-size: 12px;
 }
 
 .tab.is-active {
-  border-color: rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.14);
-  font-weight: 600;
+  border-color: var(--surface-border-intense);
+  background: var(--surface-selected);
 }
 
 .tab:disabled {
@@ -126,8 +123,8 @@
 .value {
   padding: 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-inline);
 }
 
 .editCard {
@@ -148,15 +145,16 @@ input[type='text'],
 input[type='date'] {
   padding: 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-field);
   color: inherit;
   outline: none;
 }
 
 input[type='text']:focus,
 input[type='date']:focus {
-  border-color: rgba(255, 255, 255, 0.28);
+  border-color: var(--surface-border-intense);
+  box-shadow: var(--focus-ring);
 }
 
 .fileBtn {
@@ -164,8 +162,8 @@ input[type='date']:focus {
   width: fit-content;
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--surface-border);
+  background: var(--button-ghost);
   cursor: pointer;
   user-select: none;
 }
@@ -188,8 +186,8 @@ input[type='date']:focus {
 .ghost {
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--surface-border);
+  background: var(--button-ghost);
   color: inherit;
   text-decoration: none;
   cursor: pointer;
@@ -197,7 +195,8 @@ input[type='date']:focus {
 }
 
 .ghost:hover {
-  border-color: rgba(255, 255, 255, 0.28);
+  border-color: var(--surface-border-strong);
+  background: var(--button-ghost-hover);
   transform: translateY(-1px);
 }
 
@@ -207,8 +206,8 @@ input[type='date']:focus {
   border: 0;
   cursor: pointer;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
+  background: var(--button-primary);
+  color: var(--button-primary-text);
 }
 
 .primary:disabled,
@@ -221,9 +220,9 @@ input[type='date']:focus {
 .danger {
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 180, 180, 0.35);
-  background: rgba(255, 180, 180, 0.08);
-  color: #ffb4b4;
+  border: 1px solid var(--danger-border);
+  background: var(--danger-bg);
+  color: var(--danger-text);
   cursor: pointer;
 }
 
@@ -234,7 +233,7 @@ input[type='date']:focus {
 
 .error {
   margin: 0;
-  color: #ffb4b4;
+  color: var(--danger-text);
 }
 
 .modalBackdrop {
@@ -243,7 +242,7 @@ input[type='date']:focus {
   display: grid;
   place-items: center;
   padding: 24px;
-  background: rgba(5, 9, 18, 0.62);
+  background: var(--backdrop);
   backdrop-filter: blur(8px);
 }
 
@@ -251,10 +250,10 @@ input[type='date']:focus {
   width: min(460px, 100%);
   padding: 20px;
   border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--surface-border);
   background:
-    radial-gradient(240px circle at top left, rgba(255, 255, 255, 0.1), transparent 55%),
-    rgba(25, 31, 45, 0.96);
+    radial-gradient(240px circle at top left, rgba(41, 231, 244, 0.16), transparent 55%),
+    var(--surface-modal);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 }
 

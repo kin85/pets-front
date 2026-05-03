@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DogService, DogDetailResponse } from '../../services/dog.service';
 import { DogNotes } from './dog-notes/dog-notes';
 import { DogVaccines } from './dog-vaccines/dog-vaccines';
@@ -17,7 +17,6 @@ const MAX_IMAGE_SIZE_MESSAGE = 'La imagen supera el tamano maximo permitido de 5
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
     ReactiveFormsModule,
     DogNotes,
     DogVaccines,

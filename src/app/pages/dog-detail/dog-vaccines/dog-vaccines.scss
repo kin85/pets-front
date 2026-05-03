@@ -15,10 +15,10 @@
   gap: 12px;
   padding: 16px;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-border);
   background:
-    radial-gradient(220px circle at top left, rgba(255, 255, 255, 0.08), transparent 55%),
-    rgba(255, 255, 255, 0.04);
+    radial-gradient(220px circle at top left, rgba(41, 231, 244, 0.14), transparent 55%),
+    var(--surface-accent-panel);
 }
 
 .columnHeader {
@@ -40,7 +40,7 @@
   place-items: center;
   padding: 0 8px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(41, 231, 244, 0.14);
   font-size: 12px;
   font-weight: 700;
 }
@@ -55,8 +55,8 @@
   gap: 6px;
   padding: 12px;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-row);
 }
 
 .pendingItem {
@@ -64,10 +64,10 @@
 }
 
 .item.warning {
-  border-color: rgba(255, 196, 107, 0.25);
+  border-color: var(--warning-border);
   background:
-    radial-gradient(140px circle at top left, rgba(255, 196, 107, 0.12), transparent 55%),
-    rgba(255, 255, 255, 0.04);
+    radial-gradient(140px circle at top left, rgba(255, 196, 107, 0.16), transparent 55%),
+    var(--surface-warning-panel);
 }
 
 .itemTop {
@@ -80,7 +80,7 @@
 .badge {
   padding: 4px 8px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(41, 231, 244, 0.14);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -88,8 +88,8 @@
 }
 
 .badge.accent {
-  background: rgba(255, 196, 107, 0.18);
-  color: #ffd595;
+  background: var(--warning-bg);
+  color: var(--warning-text);
 }
 
 .meta {
@@ -105,8 +105,8 @@
   border: 0;
   cursor: pointer;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
+  background: var(--button-primary);
+  color: var(--button-primary-text);
 }
 
 .applyForm {
@@ -127,8 +127,8 @@
 input[type='date'] {
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--surface-border);
+  background: var(--surface-field);
   color: inherit;
   outline: none;
 }
@@ -146,7 +146,7 @@ input[type='date'] {
 
 .error {
   margin: 0;
-  color: #ffb4b4;
+  color: var(--danger-text);
 }
 
 .applyBtn:disabled,
