@@ -377,7 +377,8 @@ export class Admin implements OnInit, OnDestroy {
         id: 'users',
         label: 'Usuarios',
         title: 'Gestion de usuarios',
-        description: 'Consulta todas las cuentas registradas y elimina usuarios cuando sea necesario.',
+        description:
+          'Consulta todas las cuentas registradas, elimina usuarios y decide quien tiene acceso de administrador.',
         columns: [
           { key: 'username', label: 'Usuario', emphasis: true },
           { key: 'email', label: 'Email' },
@@ -388,11 +389,15 @@ export class Admin implements OnInit, OnDestroy {
         defaultSortDir: 'asc',
         searchPlaceholder: 'Buscar por usuario, email o rol',
         allowCreate: false,
-        allowEdit: false,
+        allowEdit: true,
         allowDelete: true,
-        fields: [],
+        fields: [{ key: 'isAdmin', label: 'Rol de administrador', type: 'checkbox' }],
         load: (request) => this.adminService.searchUsers(request),
+        update: (id, payload) => this.adminService.updateUserAdminRole(id, payload as never),
         delete: (id) => this.adminService.deleteUser(id),
+        toPayload: (rawValue) => ({
+          admin: this.asBoolean(rawValue['isAdmin']),
+        }),
       },
       {
         id: 'dogs',

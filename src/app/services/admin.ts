@@ -57,6 +57,10 @@ export type VaccineAdminDto = {
   optional: boolean;
 };
 
+export type UserAdminRoleUpdateDto = {
+  admin: boolean;
+};
+
 @Injectable({ providedIn: 'root' })
 export class AdminService {
   private readonly adminUrl = 'https://pets-x11k.onrender.com/api/admin';
@@ -77,6 +81,10 @@ export class AdminService {
       `${this.adminUrl}/users/datatables`,
       body
     );
+  }
+
+  updateUserAdminRole(id: number, body: UserAdminRoleUpdateDto): Observable<void> {
+    return this.http.put<void>(`${this.adminUrl}/users/${id}/admin-role`, body);
   }
 
   deleteUser(id: number): Observable<void> {
