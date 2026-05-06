@@ -26,7 +26,7 @@ export class AddDog {
   form = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     breed: ['', [Validators.required, Validators.minLength(2)]],
-    birthDate: ['', [Validators.required]], // yyyy-mm-dd del input date
+    birthDate: ['', [Validators.required]],
     microchip: ['', [Validators.required, Validators.minLength(5)]],
   });
 
@@ -75,13 +75,12 @@ export class AddDog {
       return;
     }
 
-    // Foto opcional (si la quieres obligatoria, lo cambiamos)
     const { name, breed, birthDate, microchip } = this.form.getRawValue();
 
     const fd = new FormData();
     fd.append('name', name!);
     fd.append('breed', breed!);
-    fd.append('birthDate', birthDate!); // "YYYY-MM-DD"
+    fd.append('birthDate', birthDate!);
     fd.append('microchip', microchip!);
 
     if (this.selectedFile) {

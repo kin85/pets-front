@@ -10,11 +10,15 @@ import { VeterinaryVisitDetail } from './pages/veterinary-visit-detail/veterinar
 import { VeterinaryVisitForm } from './pages/veterinary-visit-form/veterinary-visit-form';
 import { VeterinaryTreatmentForm } from './pages/veterinary-treatment-form/veterinary-treatment-form';
 import { Admin } from './pages/admin/admin';
+import { ConfirmEmail } from './pages/confirm-email/confirm-email';
+import { ResetPassword } from './pages/reset-password/reset-password';
 import { adminGuard, guestGuard, ownerGuard } from './guards/auth.guards';
 
 export const routes: Routes = [
   { path: 'login', component: Login, canActivate: [guestGuard] },
   { path: 'register', component: Register, canActivate: [guestGuard] },
+  { path: 'confirm-email', component: ConfirmEmail },
+  { path: 'reset-password', component: ResetPassword },
   { path: 'admin', component: Admin, canActivate: [adminGuard] },
   { path: 'home', component: Home, canActivate: [ownerGuard] },
   { path: 'veterinarians', component: Veterinarians, canActivate: [ownerGuard] },

@@ -22,9 +22,21 @@ export interface RegisterRequest {
   phone: string;
 }
 
+export interface EmailRequest {
+  email: string;
+}
+
+export interface TokenRequest {
+  token: string;
+}
+
+export interface PasswordResetRequest {
+  token: string;
+  password: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // Ajusta si tu back usa otra ruta
   private readonly baseUrl = 'https://pets-x11k.onrender.com/auth';
 
   constructor(private http: HttpClient) {}
@@ -35,5 +47,30 @@ export class AuthService {
 
   register(body: RegisterRequest): Observable<void> {
     return this.http.post<void>(`${this.baseUrl}/register`, body);
+  }
+
+  confirmEmail(token: string): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/confirm-email`, { token } satisfies TokenRequest);
+  }
+
+  resendConfirmationEmail(email: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.baseUrl}/confirm-email/resend`,
+      { email } satisfies EmailRequest
+    );
+  }
+
+  requestPasswordReset(email: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.baseUrl}/password-reset/request`,
+      { email } satisfies EmailRequest
+    );
+  }
+
+  resetPassword(token: string, password: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.baseUrl}/password-reset/confirm`,
+      { token, password } satisfies PasswordResetRequest
+    );
   }
 }

@@ -1,0 +1,48 @@
+<div class="page">
+  <div class="card">
+    <div class="brand">
+      <img class="brandLockup" src="branding/appets-logo-full.png" alt="Appets" />
+      <div class="brandCopy">
+        <h1>Confirmacion de correo</h1>
+        <p class="subtitle">Activa tu cuenta para poder acceder a Appets</p>
+      </div>
+    </div>
+
+    @if (loading) {
+      <p class="notice pending">Confirmando tu correo…</p>
+    } @else if (status === 'success') {
+      <p class="notice success">{{ message }}</p>
+      <a class="link" [routerLink]="['/login']">Ir a iniciar sesion</a>
+    } @else {
+      @if (message) {
+        <p class="notice pending">{{ message }}</p>
+      }
+
+      @if (error) {
+        <p class="notice error">{{ error }}</p>
+      }
+
+      <form (ngSubmit)="resend()" #f="ngForm" class="form">
+        <label class="field">
+          <span>Email</span>
+          <input
+            name="email"
+            type="email"
+            [(ngModel)]="email"
+            required
+            autocomplete="email"
+            placeholder="usuario@email.com"
+          />
+        </label>
+
+        <button class="btn" type="submit" [disabled]="resending || f.invalid">
+          {{ resending ? 'Enviando…' : 'Reenviar correo de confirmacion' }}
+        </button>
+
+        <a class="link" [routerLink]="['/login']">Volver al login</a>
+      </form>
+    }
+  </div>
+
+  <p class="footnote">© {{ year }} Appets</p>
+</div>

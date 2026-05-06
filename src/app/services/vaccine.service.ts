@@ -2,24 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface VaccineViewDto {
-  id: number;
-  name: string;
-  optional: boolean;
-}
-
-export interface VaccineListDto {
-  id: number;
-  name: string;
-  optional: boolean;
-  lastApplicationDate: string;
-}
-
-export interface VaccineDogViewDto {
-  name: string;
-  vaccines: VaccineListDto[];
-}
-
 export interface VaccineDogDto {
   dogId: number;
   vaccineId: number;
@@ -45,18 +27,9 @@ export interface VaccineOverviewDto {
 
 @Injectable({ providedIn: 'root' })
 export class VaccineService {
-  private readonly vaccinesUrl = 'https://pets-x11k.onrender.com/api/vaccines';
   private readonly dogsUrl = 'https://pets-x11k.onrender.com/api/dogs';
 
   constructor(private http: HttpClient) {}
-
-  getAllVaccines(): Observable<VaccineViewDto[]> {
-    return this.http.get<VaccineViewDto[]>(this.vaccinesUrl);
-  }
-
-  getDogVaccines(dogId: number): Observable<VaccineDogViewDto> {
-    return this.http.get<VaccineDogViewDto>(`${this.dogsUrl}/${dogId}/vaccines`);
-  }
 
   getVaccineOverview(dogId: number): Observable<VaccineOverviewDto> {
     return this.http.get<VaccineOverviewDto>(`${this.dogsUrl}/${dogId}/vaccines/overview`);

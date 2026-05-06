@@ -136,7 +136,6 @@ h2 {
   color: var(--danger-text);
 }
 
-/* "Perfiles" estilo Netflix */
 .profiles {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -175,8 +174,6 @@ h2 {
   place-items: center;
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
   transition: transform 140ms ease, border-color 140ms ease;
-
-  /* NUEVO: para imagen */
   position: relative;
   overflow: hidden;
 }
@@ -202,7 +199,6 @@ h2 {
   white-space: nowrap;
 }
 
-/* NUEVO: estilos de la imagen + letra fallback */
 .avatarImg {
   position: absolute;
   inset: 0;

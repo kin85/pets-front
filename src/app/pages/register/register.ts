@@ -53,8 +53,9 @@ export class Register {
     this.auth.register(body).subscribe({
       next: () => {
         this.loading = false;
-        // registro OK -> volver a login
-        this.router.navigate(['/login']);
+        this.router.navigate(['/confirm-email'], {
+          queryParams: { email: this.email },
+        });
       },
       error: (err) => {
         this.loading = false;

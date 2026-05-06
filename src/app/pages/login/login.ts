@@ -65,10 +65,6 @@ export class Login {
     if (typeof err === 'object' && err !== null) {
       const httpError = err as { status?: number; error?: unknown };
 
-      if (httpError.status === 401 || httpError.status === 403) {
-        return 'Usuario o contraseña incorrectos';
-      }
-
       if (typeof httpError.error === 'string' && httpError.error.trim()) {
         return httpError.error;
       }
@@ -82,6 +78,10 @@ export class Login {
         if (typeof message === 'string' && message.trim()) {
           return message;
         }
+      }
+
+      if (httpError.status === 401) {
+        return 'Usuario o contraseña incorrectos';
       }
     }
 

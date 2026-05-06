@@ -90,9 +90,7 @@ export class DogDetail implements OnInit, OnDestroy {
         this.photoUrl = URL.createObjectURL(blob);
         this.cdr.detectChanges();
       },
-      error: () => {
-        // Sin foto o error -> dejamos placeholder
-      },
+      error: () => {},
     });
   }
 
