@@ -12,6 +12,8 @@ import { AuthService, RegisterRequest } from '../../services/auth';
   styleUrl: './register.scss',
 })
 export class Register {
+  readonly passwordMinLength = 8;
+
   username = '';
   email = '';
   password = '';
@@ -26,7 +28,17 @@ export class Register {
   constructor(private auth: AuthService, private router: Router) {}
 
   submit(): void {
+    if (this.loading) {
+      return;
+    }
+
     this.error = '';
+
+    if (this.password.length < this.passwordMinLength) {
+      this.error = `La contraseña debe tener al menos ${this.passwordMinLength} caracteres`;
+      return;
+    }
+
     this.loading = true;
 
     const body: RegisterRequest = {
@@ -46,7 +58,8 @@ export class Register {
       },
       error: (err) => {
         this.loading = false;
-        this.error = err?.error?.message ?? 'No se pudo crear la cuenta';
+        this.error =
+          err?.error?.message ?? err?.error ?? 'No se pudo crear la cuenta';
       },
     });
   }

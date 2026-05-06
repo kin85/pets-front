@@ -56,7 +56,7 @@ export class Profile implements OnInit {
         name: ['', [Validators.required, Validators.minLength(2)]],
         address: ['', [Validators.required, Validators.minLength(5)]],
         phone: ['', [Validators.required, Validators.minLength(5)]],
-        password: ['', [Validators.minLength(6)]],
+        password: ['', [Validators.minLength(8)]],
         confirmPassword: [''],
       },
       { validators: passwordsMatchValidator }

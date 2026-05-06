@@ -22,6 +22,13 @@
                 </div>
                 <p class="meta">Aplicada: {{ vaccine.lastApplicationDate }}</p>
                 <p class="meta">Caduca: {{ vaccine.nextDueDate }}</p>
+                @if (vaccine.applicationId) {
+                  <div class="itemActions">
+                    <button class="dangerBtn" type="button" (click)="openDeleteModal(vaccine)">
+                      Eliminar
+                    </button>
+                  </div>
+                }
               </article>
             }
           </div>
@@ -100,10 +107,36 @@
                 </div>
                 <p class="meta">Aplicada: {{ vaccine.lastApplicationDate }}</p>
                 <p class="meta">Renovar antes de: {{ vaccine.nextDueDate }}</p>
+                @if (vaccine.applicationId) {
+                  <div class="itemActions">
+                    <button class="dangerBtn" type="button" (click)="openDeleteModal(vaccine)">
+                      Eliminar
+                    </button>
+                  </div>
+                }
               </article>
             }
           </div>
         }
+      </section>
+    </div>
+  }
+
+  @if (deletingRecord) {
+    <div class="modalBackdrop" (click)="closeDeleteModal()">
+      <section class="modalCard" (click)="$event.stopPropagation()">
+        <h3>Eliminar vacuna aplicada</h3>
+        <p class="muted">
+          Se eliminara el ultimo registro aplicado de {{ deletingRecord.name }}.
+        </p>
+        <div class="modalActions">
+          <button class="ghost" type="button" (click)="closeDeleteModal()" [disabled]="deleting">
+            Cancelar
+          </button>
+          <button class="dangerBtn" type="button" (click)="confirmDelete()" [disabled]="deleting">
+            @if (deleting) { Eliminando… } @else { Confirmar borrado }
+          </button>
+        </div>
       </section>
     </div>
   }

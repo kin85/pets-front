@@ -39,9 +39,15 @@
           type="password"
           [(ngModel)]="password"
           required
+          minlength="8"
           autocomplete="new-password"
           placeholder="••••••••"
+          #passwordModel="ngModel"
         />
+        <small class="hint">Minimo 8 caracteres.</small>
+        @if (passwordModel.touched && passwordModel.errors?.['minlength']) {
+          <small class="error">La contraseña debe tener al menos 8 caracteres.</small>
+        }
       </label>
 
       <label class="field">

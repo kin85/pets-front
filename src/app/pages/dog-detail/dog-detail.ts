@@ -104,6 +104,10 @@ export class DogDetail implements OnInit, OnDestroy {
     this.activeTab = tab;
   }
 
+  goToDogsList(): void {
+    this.router.navigate(['/home']);
+  }
+
   startEdit(): void {
     if (!this.dog) return;
     this.editing = true;

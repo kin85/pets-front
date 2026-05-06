@@ -98,6 +98,12 @@
   opacity: 0.8;
 }
 
+.itemActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
 .applyToggle,
 .applyBtn {
   padding: 10px 12px;
@@ -139,6 +145,15 @@ input[type='date'] {
   gap: 8px;
 }
 
+.dangerBtn {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--danger-border);
+  background: var(--danger-bg);
+  color: var(--danger-text);
+  cursor: pointer;
+}
+
 .muted {
   margin: 0;
   opacity: 0.75;
@@ -150,9 +165,43 @@ input[type='date'] {
 }
 
 .applyBtn:disabled,
-.applyToggle:disabled {
+.applyToggle:disabled,
+.dangerBtn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--backdrop);
+  backdrop-filter: blur(8px);
+}
+
+.modalCard {
+  width: min(460px, 100%);
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid var(--surface-border);
+  background:
+    radial-gradient(240px circle at top left, rgba(var(--brand-gold-rgb), 0.16), transparent 55%),
+    var(--surface-modal);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.modalCard h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
 }
 
 @media (max-width: 980px) {

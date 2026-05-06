@@ -28,6 +28,7 @@ export interface VaccineDogDto {
 
 export interface VaccineSummaryItemDto {
   id: number;
+  applicationId: number | null;
   name: string;
   optional: boolean;
   lastApplicationDate: string | null;
@@ -63,5 +64,9 @@ export class VaccineService {
 
   applyVaccine(body: VaccineDogDto): Observable<number> {
     return this.http.post<number>(`${this.dogsUrl}/vaccine`, body);
+  }
+
+  deleteVaccineApplication(dogId: number, applicationId: number): Observable<void> {
+    return this.http.delete<void>(`${this.dogsUrl}/${dogId}/vaccines/${applicationId}`);
   }
 }

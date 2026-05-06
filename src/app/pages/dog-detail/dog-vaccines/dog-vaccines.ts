@@ -28,6 +28,8 @@ export class DogVaccines implements OnChanges {
   pending: VaccineCard[] = [];
   applyingId: number | null = null;
   applying = false;
+  deleting = false;
+  deletingRecord: { applicationId: number; name: string } | null = null;
 
   readonly applyForm;
 
@@ -44,6 +46,7 @@ export class DogVaccines implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['dogId']) {
       this.applyingId = null;
+      this.deletingRecord = null;
       this.loadVaccines();
     }
   }
@@ -62,6 +65,43 @@ export class DogVaccines implements OnChanges {
   cancelApply(): void {
     if (this.applying) return;
     this.applyingId = null;
+  }
+
+  openDeleteModal(vaccine: VaccineCard): void {
+    if (!vaccine.applicationId) return;
+
+    this.deletingRecord = {
+      applicationId: vaccine.applicationId,
+      name: vaccine.name,
+    };
+    this.error = '';
+  }
+
+  closeDeleteModal(): void {
+    if (this.deleting) return;
+    this.deletingRecord = null;
+  }
+
+  confirmDelete(): void {
+    if (!this.dogId || !this.deletingRecord || this.deleting) return;
+
+    this.deleting = true;
+    this.error = '';
+
+    this.vaccineService
+      .deleteVaccineApplication(this.dogId, this.deletingRecord.applicationId)
+      .subscribe({
+        next: () => {
+          this.deleting = false;
+          this.deletingRecord = null;
+          this.loadVaccines();
+        },
+        error: (err) => {
+          this.deleting = false;
+          this.error = this.getErrorMessage(err, 'No se pudo eliminar la vacuna aplicada');
+          this.cdr.detectChanges();
+        },
+      });
   }
 
   saveApply(vaccineId: number): void {
