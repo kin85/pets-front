@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { SessionService } from '../../services/session';
 
 @Component({
   selector: 'app-owner-shell',
@@ -12,10 +13,13 @@ import { Router, RouterLink } from '@angular/router';
 export class OwnerShell {
   @Input() section: 'dogs' | 'vets' | 'profile' = 'dogs';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private session: SessionService
+  ) {}
 
   logout(): void {
-    localStorage.removeItem('token');
+    this.session.clear();
     this.router.navigate(['/login']);
   }
 }

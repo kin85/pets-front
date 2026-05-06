@@ -25,22 +25,24 @@
 .logo {
   width: 52px;
   height: 52px;
+  padding: 4px;
   display: grid;
   place-items: center;
   overflow: hidden;
   border-radius: 16px;
   border: 1px solid var(--surface-border-strong);
   background:
-    radial-gradient(60px circle at 30% 30%, rgba(255, 255, 255, 0.22), transparent 55%),
-    linear-gradient(135deg, rgba(41, 231, 244, 0.9), rgba(23, 60, 130, 0.88));
-  box-shadow: 0 14px 30px rgba(23, 60, 130, 0.22);
+    radial-gradient(60px circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 55%),
+    linear-gradient(180deg, rgba(255, 251, 244, 0.92), rgba(241, 235, 221, 0.96));
+  box-shadow: 0 14px 30px rgba(var(--brand-shadow-rgb), 0.18);
 }
 
 .logoImg {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
+  mix-blend-mode: multiply;
 }
 
 h1 {

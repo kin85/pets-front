@@ -17,14 +17,14 @@
   border-radius: 18px;
   border: 1px solid var(--surface-border);
   background:
-    radial-gradient(220px circle at top left, rgba(41, 231, 244, 0.14), transparent 55%),
+    radial-gradient(220px circle at top left, rgba(var(--brand-gold-rgb), 0.14), transparent 55%),
     var(--surface-accent-panel);
 }
 
 .card.is-active {
   border-color: var(--surface-border-intense);
   background:
-    radial-gradient(180px circle at top left, rgba(41, 231, 244, 0.18), transparent 55%),
+    radial-gradient(180px circle at top left, rgba(var(--brand-gold-rgb), 0.18), transparent 55%),
     var(--surface-active-panel);
 }
 
@@ -58,7 +58,7 @@
 .status {
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(41, 231, 244, 0.16);
+  background: rgba(var(--brand-gold-rgb), 0.16);
   color: var(--success-text);
   font-size: 11px;
   font-weight: 700;
@@ -68,7 +68,7 @@
 }
 
 .status.active {
-  background: rgba(41, 231, 244, 0.16);
+  background: rgba(var(--brand-gold-rgb), 0.16);
   color: var(--success-text);
 }
 
@@ -235,7 +235,7 @@ input[type='date'] {
   border-radius: 18px;
   border: 1px solid var(--surface-border);
   background:
-    radial-gradient(240px circle at top left, rgba(41, 231, 244, 0.16), transparent 55%),
+    radial-gradient(240px circle at top left, rgba(var(--brand-gold-rgb), 0.16), transparent 55%),
     var(--surface-modal);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 }

@@ -47,7 +47,7 @@
   border-radius: 12px;
   border: 1px solid var(--surface-border);
   background:
-    radial-gradient(120px circle at 30% 30%, rgba(41, 231, 244, 0.18), transparent 55%),
+    radial-gradient(120px circle at 30% 30%, rgba(var(--brand-gold-rgb), 0.18), transparent 55%),
     var(--surface-avatar);
   display: grid;
   place-items: center;
@@ -252,7 +252,7 @@ input[type='date']:focus {
   border-radius: 18px;
   border: 1px solid var(--surface-border);
   background:
-    radial-gradient(240px circle at top left, rgba(41, 231, 244, 0.16), transparent 55%),
+    radial-gradient(240px circle at top left, rgba(var(--brand-gold-rgb), 0.16), transparent 55%),
     var(--surface-modal);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 }

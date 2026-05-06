@@ -75,7 +75,7 @@ input[type="date"]:focus {
   border: 1px solid var(--surface-border);
   overflow: hidden;
   background:
-    radial-gradient(120px circle at 30% 30%, rgba(41, 231, 244, 0.16), transparent 55%),
+    radial-gradient(120px circle at 30% 30%, rgba(var(--brand-gold-rgb), 0.16), transparent 55%),
     var(--surface-avatar);
 }
 
@@ -129,13 +129,13 @@ input[type="date"]:focus {
   font-weight: 600;
   background: var(--button-primary);
   color: var(--button-primary-text);
-  box-shadow: 0 12px 26px rgba(23, 60, 130, 0.28);
+  box-shadow: 0 12px 26px rgba(var(--brand-shadow-rgb), 0.22);
   transition: transform 120ms ease, opacity 120ms ease, box-shadow 120ms ease;
 }
 
 .btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 16px 30px rgba(23, 60, 130, 0.34);
+  box-shadow: 0 16px 30px rgba(var(--brand-shadow-rgb), 0.28);
 }
 
 .btn:disabled {

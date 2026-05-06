@@ -9,7 +9,8 @@ export interface LoginRequest {
 
 export interface LoginResponse {
   token: string;
-  id: number;
+  ownerId: number | null;
+  roles: string[];
 }
 
 export interface RegisterRequest {

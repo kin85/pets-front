@@ -104,7 +104,7 @@
   border-radius: 16px;
   border: 1px solid var(--surface-border);
   background:
-    radial-gradient(220px circle at top left, rgba(41, 231, 244, 0.14), transparent 55%),
+    radial-gradient(220px circle at top left, rgba(var(--brand-gold-rgb), 0.14), transparent 55%),
     var(--surface-accent-panel);
 }
 

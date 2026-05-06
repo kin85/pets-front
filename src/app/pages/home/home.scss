@@ -31,10 +31,10 @@
   border: 1px solid var(--surface-border-strong);
   background:
     radial-gradient(60px circle at 30% 30%, rgba(255, 255, 255, 0.22), transparent 55%),
-    linear-gradient(135deg, rgba(41, 231, 244, 0.9), rgba(23, 60, 130, 0.88));
-  color: #04131c;
+    linear-gradient(135deg, rgba(var(--brand-olive-rgb), 0.9), rgba(var(--brand-gold-rgb), 0.9));
+  color: #493d26;
   font-size: 22px;
-  box-shadow: 0 12px 26px rgba(23, 60, 130, 0.22);
+  box-shadow: 0 12px 26px rgba(var(--brand-shadow-rgb), 0.18);
 }
 
 h1 {
@@ -95,13 +95,13 @@ h2 {
   font-weight: 600;
   background: var(--button-primary);
   color: var(--button-primary-text);
-  box-shadow: 0 12px 26px rgba(23, 60, 130, 0.28);
+  box-shadow: 0 12px 26px rgba(var(--brand-shadow-rgb), 0.22);
   transition: transform 120ms ease, opacity 120ms ease, box-shadow 120ms ease;
 }
 
 .btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 16px 30px rgba(23, 60, 130, 0.34);
+  box-shadow: 0 16px 30px rgba(var(--brand-shadow-rgb), 0.28);
 }
 
 .btn:disabled {
@@ -169,7 +169,7 @@ h2 {
   border-radius: 12px;
   border: 1px solid var(--surface-border);
   background:
-    radial-gradient(120px circle at 30% 30%, rgba(41, 231, 244, 0.18), transparent 55%),
+    radial-gradient(120px circle at 30% 30%, rgba(var(--brand-gold-rgb), 0.18), transparent 55%),
     var(--surface-avatar);
   display: grid;
   place-items: center;

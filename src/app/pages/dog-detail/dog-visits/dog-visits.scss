@@ -185,7 +185,7 @@
   border-radius: 18px;
   border: 1px solid var(--surface-border);
   background:
-    radial-gradient(240px circle at top left, rgba(41, 231, 244, 0.16), transparent 55%),
+    radial-gradient(240px circle at top left, rgba(var(--brand-gold-rgb), 0.16), transparent 55%),
     var(--surface-modal);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 }
@@ -214,6 +214,10 @@
 }
 
 @media (max-width: 820px) {
+  .row.header {
+    display: none;
+  }
+
   .row {
     grid-template-columns: 1fr;
   }

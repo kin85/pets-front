@@ -1,0 +1,225 @@
+<div class="adminShell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <img class="logoImg" src="branding/appets-logo-icon.png" alt="" />
+      </div>
+      <div>
+        <p class="eyebrow">Panel de administracion</p>
+        <h1>Appets Control Center</h1>
+        <p class="subtitle">Gestion global del contenido y de los datos del sistema.</p>
+      </div>
+    </div>
+
+    <div class="headerActions">
+      <span class="badge" [class.is-loading]="bootstrapping">Admin</span>
+      <button class="ghost" type="button" (click)="logout()">Cerrar sesion</button>
+    </div>
+  </header>
+
+  <nav class="sectionNav" aria-label="Secciones del panel">
+    @for (section of sections; track section.id) {
+      <button
+        class="sectionLink"
+        type="button"
+        [class.is-active]="section.id === activeSectionId"
+        (click)="selectSection(section.id)"
+      >
+        {{ section.label }}
+      </button>
+    }
+  </nav>
+
+  <section class="heroCard">
+    <div>
+      <p class="eyebrow">{{ activeSection.label }}</p>
+      <h2>{{ activeSection.title }}</h2>
+      <p>{{ activeSection.description }}</p>
+    </div>
+
+    <div class="heroMeta">
+      <div class="metaCard">
+        <strong>{{ totalFiltered }}</strong>
+        <span>Resultados</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="tableCard">
+    <div class="toolbar">
+      <label class="searchField">
+        <span>Buscar</span>
+        <input
+          type="search"
+          [value]="searchTerm"
+          [placeholder]="activeSection.searchPlaceholder"
+          (input)="onSearchInput($any($event.target).value)"
+        />
+      </label>
+
+      <div class="toolbarActions">
+        @if (activeSection.allowCreate) {
+          <button class="primary" type="button" (click)="openCreate()">
+            {{ activeSection.createLabel || 'Nuevo registro' }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="tableHeader">
+      <span>{{ sectionSummary }}</span>
+
+      <div class="pager">
+        <button class="ghost small" type="button" (click)="previousPage()" [disabled]="pageIndex === 0">
+          Anterior
+        </button>
+        <span>Pagina {{ pageIndex + 1 }} / {{ totalPages }}</span>
+        <button
+          class="ghost small"
+          type="button"
+          (click)="nextPage()"
+          [disabled]="pageIndex + 1 >= totalPages"
+        >
+          Siguiente
+        </button>
+      </div>
+    </div>
+
+    @if (error) {
+      <div class="feedback error">{{ error }}</div>
+    }
+
+    @if (loading) {
+      <div class="emptyState">Cargando datos...</div>
+    } @else if (!rows.length) {
+      <div class="emptyState">No hay resultados para esta seccion.</div>
+    } @else {
+      <div class="tableWrap">
+        <table class="dataTable">
+          <thead>
+            <tr>
+              @for (column of activeSection.columns; track column.key) {
+                <th>{{ column.label }}</th>
+              }
+              @if (activeSection.allowEdit || activeSection.allowDelete) {
+                <th class="actionsCol">Acciones</th>
+              }
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (row of rows; track row['id']) {
+              <tr>
+                @for (column of activeSection.columns; track column.key) {
+                  <td [class.emphasis]="column.emphasis">
+                    {{ displayValue(column.key, row[column.key]) }}
+                  </td>
+                }
+                @if (activeSection.allowEdit || activeSection.allowDelete) {
+                  <td class="actionsCell">
+                    @if (activeSection.allowEdit) {
+                      <button class="ghost small" type="button" (click)="openEdit(row)">Editar</button>
+                    }
+                    @if (activeSection.allowDelete) {
+                      <button class="danger small" type="button" (click)="openDeleteModal(row)">
+                        Eliminar
+                      </button>
+                    }
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </section>
+</div>
+
+@if (formMode) {
+  <div class="modalBackdrop">
+    <div class="modalCard">
+      <div class="modalHeader">
+        <div>
+          <p class="eyebrow">{{ activeSection.label }}</p>
+          <h3>{{ formMode === 'create' ? activeSection.createLabel || 'Nuevo registro' : 'Editar registro' }}</h3>
+        </div>
+        <button class="closeBtn" type="button" (click)="closeForm()">Cerrar</button>
+      </div>
+
+      <form class="formGrid" [formGroup]="form" (ngSubmit)="save()">
+        @for (field of activeSection.fields; track field.key) {
+          <label class="field" [class.fieldWide]="field.type === 'textarea'">
+            <span>{{ field.label }}</span>
+
+            @switch (field.type) {
+              @case ('textarea') {
+                <textarea
+                  rows="4"
+                  [placeholder]="field.placeholder || ''"
+                  [formControlName]="field.key"
+                ></textarea>
+              }
+              @case ('select') {
+                <select [formControlName]="field.key">
+                  <option value="">Selecciona una opcion</option>
+                  @for (option of getOptionEntries(field); track option.value) {
+                    <option [value]="option.value">{{ option.label }}</option>
+                  }
+                </select>
+              }
+              @case ('checkbox') {
+                <span class="checkboxField">
+                  <input type="checkbox" [formControlName]="field.key" />
+                  <small>Activar esta opcion</small>
+                </span>
+              }
+              @default {
+                <input
+                  [type]="field.type"
+                  [placeholder]="field.placeholder || ''"
+                  [formControlName]="field.key"
+                />
+              }
+            }
+
+            @if (fieldHasError(field.key)) {
+              <small class="errorText">Este campo es obligatorio.</small>
+            }
+          </label>
+        }
+
+        <div class="formActions">
+          <button class="ghost" type="button" (click)="closeForm()">Cancelar</button>
+          <button class="primary" type="submit" [disabled]="saving">
+            {{ saving ? 'Guardando...' : 'Guardar' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}
+
+@if (deletingRow) {
+  <div class="modalBackdrop">
+    <div class="modalCard compact">
+      <div class="modalHeader">
+        <div>
+          <p class="eyebrow">Confirmacion</p>
+          <h3>Eliminar registro</h3>
+        </div>
+      </div>
+
+      <p class="confirmText">
+        Vas a eliminar <strong>{{ deleteLabel }}</strong>. Esta accion no se puede deshacer.
+      </p>
+
+      <div class="formActions">
+        <button class="ghost" type="button" (click)="closeDeleteModal()">Cancelar</button>
+        <button class="danger" type="button" (click)="confirmDelete()" [disabled]="deleting">
+          {{ deleting ? 'Eliminando...' : 'Eliminar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
