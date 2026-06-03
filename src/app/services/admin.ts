@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { NoteDto } from './note.service';
 import { VeterinaryVisitDto } from './veterinary-visit.service';
 import { VeterinaryTreatmentDto } from './veterinary-treatment.service';
 import { DewormingDto } from './deworming.service';
@@ -64,7 +63,6 @@ export type UserAdminRoleUpdateDto = {
 @Injectable({ providedIn: 'root' })
 export class AdminService {
   private readonly adminUrl = 'https://pets-x11k.onrender.com/api/admin';
-  private readonly notesUrl = 'https://pets-x11k.onrender.com/api/notes';
   private readonly visitsUrl = 'https://pets-x11k.onrender.com/api/veterinary-visits';
   private readonly treatmentsUrl = 'https://pets-x11k.onrender.com/api/veterinary-treatments';
   private readonly dewormingUrl = 'https://pets-x11k.onrender.com/api/deworming';
@@ -138,25 +136,6 @@ export class AdminService {
 
   deleteVaccine(id: number): Observable<void> {
     return this.http.delete<void>(`${this.adminUrl}/vaccines/${id}`);
-  }
-
-  searchNotes(body: DatatablesRequest): Observable<DatatablesResponse<Record<string, string>>> {
-    return this.http.post<DatatablesResponse<Record<string, string>>>(
-      `${this.adminUrl}/notes/datatables`,
-      body
-    );
-  }
-
-  createNote(body: NoteDto): Observable<number> {
-    return this.http.post<number>(this.notesUrl, body);
-  }
-
-  updateNote(id: number, body: NoteDto): Observable<void> {
-    return this.http.put<void>(`${this.notesUrl}/${id}`, body);
-  }
-
-  deleteNote(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.notesUrl}/${id}`);
   }
 
   searchVisits(body: DatatablesRequest): Observable<DatatablesResponse<Record<string, string>>> {

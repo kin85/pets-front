@@ -19,6 +19,10 @@
         {{ loading ? 'Entrando…' : 'Entrar' }}
       </button>
 
+      @if (notice) {
+        <p class="notice">{{ notice }}</p>
+      }
+
       @if (error) {
         <p class="error">{{ error }}</p>
       }

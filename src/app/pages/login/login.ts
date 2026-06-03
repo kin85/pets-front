@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { AuthService } from '../../services/auth';
 import { SessionService } from '../../services/session';
@@ -18,16 +18,20 @@ export class Login {
   password = '';
 
   loading = false;
+  notice = '';
   error = '';
 
   year = new Date().getFullYear();
 
   constructor(
     private auth: AuthService,
+    private route: ActivatedRoute,
     private router: Router,
     private session: SessionService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+    this.notice = this.route.snapshot.queryParamMap.get('message')?.trim() ?? '';
+  }
 
   submit(): void {
     if (this.loading) {
@@ -35,6 +39,7 @@ export class Login {
     }
 
     this.error = '';
+    this.notice = '';
     this.loading = true;
     this.cdr.detectChanges();
 

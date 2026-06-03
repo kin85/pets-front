@@ -115,6 +115,12 @@
   gap: 12px;
 }
 
+.treatmentActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .treatmentGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -142,6 +148,20 @@
   cursor: not-allowed;
 }
 
+.dangerBtn {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(var(--danger-rgb), 0.3);
+  background: rgba(var(--danger-rgb), 0.08);
+  color: var(--danger-text);
+  cursor: pointer;
+}
+
+.dangerBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .muted {
   margin: 0;
   opacity: 0.75;
@@ -150,6 +170,38 @@
 .error {
   margin: 0;
   color: var(--danger-text);
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(var(--brand-shadow-rgb), 0.24);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 30;
+}
+
+.modalCard {
+  width: min(100%, 420px);
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid var(--surface-border);
+  background: linear-gradient(180deg, var(--surface-panel), var(--surface-panel-strong));
+  box-shadow: var(--shadow-card);
+  display: grid;
+  gap: 14px;
+}
+
+.modalCard h3,
+.modalCard p {
+  margin: 0;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 @media (max-width: 820px) {
@@ -164,5 +216,16 @@
   .grid,
   .treatmentGrid {
     grid-template-columns: 1fr;
+  }
+
+  .treatmentActions,
+  .modalActions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .treatmentActions > *,
+  .modalActions > * {
+    width: 100%;
   }
 }

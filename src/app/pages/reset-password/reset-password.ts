@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { AuthService } from '../../services/auth';
 
@@ -20,9 +20,7 @@ export class ResetPassword implements OnInit {
   password = '';
   confirmPassword = '';
   loading = false;
-  success = false;
   error = '';
-  message = '';
   year = new Date().getFullYear();
 
   get isConfirmationMode(): boolean {
@@ -31,6 +29,7 @@ export class ResetPassword implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private auth: AuthService
   ) {}
 
@@ -55,8 +54,11 @@ export class ResetPassword implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.success = true;
-          this.message = 'Si el correo existe, te hemos enviado un enlace para restablecer la contraseña.';
+          this.router.navigate(['/login'], {
+            queryParams: {
+              message: 'Si el correo existe, te hemos enviado un enlace para restablecer la contraseña.',
+            },
+          });
         },
         error: (err) => {
           this.error = this.getErrorMessage(err, 'No se pudo solicitar el cambio de contraseña');
@@ -92,8 +94,11 @@ export class ResetPassword implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.success = true;
-          this.message = 'Contraseña actualizada. Ya puedes iniciar sesion con la nueva clave.';
+          this.router.navigate(['/login'], {
+            queryParams: {
+              message: 'Contraseña actualizada. Ya puedes iniciar sesion con la nueva clave.',
+            },
+          });
         },
         error: (err) => {
           this.error = this.getErrorMessage(err, 'No se pudo restablecer la contraseña');

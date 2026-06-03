@@ -10,7 +10,6 @@ import {
   DatatablesResponse,
 } from '../../services/admin';
 import { SessionService } from '../../services/session';
-import { NoteDto } from '../../services/note.service';
 import { VeterinaryVisitDto } from '../../services/veterinary-visit.service';
 import { VeterinaryTreatmentDto } from '../../services/veterinary-treatment.service';
 import { DewormingDto } from '../../services/deworming.service';
@@ -20,7 +19,6 @@ type SectionId =
   | 'dogs'
   | 'veterinaries'
   | 'vaccines'
-  | 'notes'
   | 'visits'
   | 'treatments'
   | 'deworming';
@@ -490,42 +488,6 @@ export class Admin implements OnInit, OnDestroy {
         toPayload: (rawValue) => ({
           name: this.asTrimmedText(rawValue['name']),
           optional: this.asBoolean(rawValue['optional']),
-        }),
-      },
-      {
-        id: 'notes',
-        label: 'Notas',
-        title: 'Notas clinicas',
-        description:
-          'Panel global para crear, editar y borrar notas asociadas a cualquier perro del sistema.',
-        columns: [
-          { key: 'noteDate', label: 'Fecha' },
-          { key: 'dogName', label: 'Perro' },
-          { key: 'subject', label: 'Asunto', emphasis: true },
-          { key: 'content', label: 'Contenido' },
-        ],
-        defaultSortKey: 'noteDate',
-        defaultSortDir: 'desc',
-        searchPlaceholder: 'Buscar por perro, asunto o contenido',
-        createLabel: 'Nueva nota',
-        allowCreate: true,
-        allowEdit: true,
-        allowDelete: true,
-        fields: [
-          { key: 'dogId', label: 'Perro', type: 'select', optionSource: 'dogs', required: true },
-          { key: 'noteDate', label: 'Fecha', type: 'date', required: true, prefillToday: true },
-          { key: 'subject', label: 'Asunto', type: 'text', required: true },
-          { key: 'content', label: 'Contenido', type: 'textarea', required: true },
-        ],
-        load: (request) => this.adminService.searchNotes(request),
-        create: (payload) => this.adminService.createNote(payload as NoteDto),
-        update: (id, payload) => this.adminService.updateNote(id, payload as NoteDto),
-        delete: (id) => this.adminService.deleteNote(id),
-        toPayload: (rawValue) => ({
-          dogId: this.asNumber(rawValue['dogId']),
-          noteDate: this.asText(rawValue['noteDate']),
-          subject: this.asTrimmedText(rawValue['subject']),
-          content: this.asTrimmedText(rawValue['content']),
         }),
       },
       {

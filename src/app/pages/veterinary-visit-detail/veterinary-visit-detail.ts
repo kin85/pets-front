@@ -21,6 +21,8 @@ import {
 export class VeterinaryVisitDetail implements OnInit {
   loading = true;
   loadingTreatments = false;
+  deletingTreatment = false;
+  deletingTreatmentId: number | null = null;
   error = '';
   dogId: number | null = null;
   visit?: VeterinaryVisitViewDto;
@@ -83,6 +85,41 @@ export class VeterinaryVisitDetail implements OnInit {
       error: () => {
         this.treatments = [];
         this.loadingTreatments = false;
+        this.cdr.detectChanges();
+      },
+    });
+  }
+
+  openDeleteTreatmentModal(treatmentId: number): void {
+    this.error = '';
+    this.deletingTreatmentId = treatmentId;
+  }
+
+  closeDeleteTreatmentModal(): void {
+    if (this.deletingTreatment) {
+      return;
+    }
+    this.deletingTreatmentId = null;
+  }
+
+  confirmDeleteTreatment(): void {
+    if (!this.deletingTreatmentId || this.deletingTreatment || !this.visit) {
+      return;
+    }
+
+    this.deletingTreatment = true;
+    this.error = '';
+
+    this.treatmentService.delete(this.deletingTreatmentId).subscribe({
+      next: () => {
+        this.deletingTreatment = false;
+        this.deletingTreatmentId = null;
+        this.loadTreatments(this.visit!.id);
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.deletingTreatment = false;
+        this.error = this.getErrorMessage(err, 'No se pudo eliminar el tratamiento');
         this.cdr.detectChanges();
       },
     });

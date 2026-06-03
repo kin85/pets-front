@@ -84,13 +84,18 @@
                       }
                     </p>
                   </div>
-                  <a
-                    class="ghost linkBtn"
-                    [routerLink]="['/veterinary-visits', visit.id, 'treatments', treatment.id, 'edit']"
-                    [queryParams]="dogId ? { dogId: dogId } : null"
-                  >
-                    Editar
-                  </a>
+                  <div class="treatmentActions">
+                    <a
+                      class="ghost linkBtn"
+                      [routerLink]="['/veterinary-visits', visit.id, 'treatments', treatment.id, 'edit']"
+                      [queryParams]="dogId ? { dogId: dogId } : null"
+                    >
+                      Editar
+                    </a>
+                    <button class="dangerBtn" type="button" (click)="openDeleteTreatmentModal(treatment.id)">
+                      Eliminar
+                    </button>
+                  </div>
                 </div>
 
                 <div class="treatmentGrid">
@@ -126,4 +131,21 @@
       </section>
     }
   </section>
+
+  @if (deletingTreatmentId !== null) {
+    <div class="modalBackdrop" (click)="closeDeleteTreatmentModal()">
+      <div class="modalCard" (click)="$event.stopPropagation()">
+        <h3>Eliminar tratamiento</h3>
+        <p>Esta accion eliminara el tratamiento asociado a la visita.</p>
+        <div class="modalActions">
+          <button class="ghost" type="button" (click)="closeDeleteTreatmentModal()" [disabled]="deletingTreatment">
+            Cancelar
+          </button>
+          <button class="dangerBtn" type="button" (click)="confirmDeleteTreatment()" [disabled]="deletingTreatment">
+            {{ deletingTreatment ? 'Eliminando…' : 'Eliminar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 </app-owner-shell>
