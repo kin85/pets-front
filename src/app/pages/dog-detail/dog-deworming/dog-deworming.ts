@@ -166,7 +166,7 @@ export class DogDeworming implements OnChanges {
       .subscribe({
         next: (overview: DewormingOverviewDto) => {
           this.cards = [
-            this.mapCard('', overview.internalDeworming),
+            this.mapCard('Desparasitacion interna', overview.internalDeworming),
             this.mapCard('Desparasitacion externa', overview.externalDeworming),
           ];
           this.loading = false;
@@ -215,15 +215,15 @@ export class DogDeworming implements OnChanges {
     daysUntilExpiration: number | null
   ): string {
     if (status === 'ACTIVE') {
-      return expirationDate
-        ? 'La desparasitacion esta vigente.'
-        : 'Sin fecha de caducidad registrada.';
+      return expirationDate ? `Caduca el ${expirationDate}.` : 'Sin fecha de caducidad registrada.';
     }
     if (status === 'WARNING') {
-      return 'La desparasitacion esta proxima a vencer.';
+      return expirationDate
+        ? `Caduca el ${expirationDate}.`
+        : 'La desparasitacion esta proxima a vencer.';
     }
     if (status === 'EXPIRED') {
-      return 'La desparasitacion ha caducado.';
+      return expirationDate ? `Caducada el ${expirationDate}.` : 'La desparasitacion ha caducado.';
     }
     if (daysUntilExpiration !== null && daysUntilExpiration <= 30) {
       return 'La desparasitacion necesita renovarse pronto.';
